@@ -1,0 +1,48 @@
+﻿using ELibrary.Core;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
+namespace ELibrary.Data.Implementation
+{
+    public class BookRepo : CoreRepo<Book>
+    {
+        private readonly ApplicationDbContext context;
+        private readonly DbSet<Book> dbSet;
+
+        public BookRepo(ApplicationDbContext ctx) : base(ctx)
+        {
+            context = ctx;
+            dbSet = context.Set<Book>();
+        }
+
+        public Book GetInclude(int id)
+        {
+            return dbSet.Where(c => c.Id == id && !c.IsDeleted)
+                .Include(c => c.Tags)
+                .Include(c => c.Category)
+                .FirstOrDefault();
+        }
+
+        public IQueryable<Book> GetAllInclude()
+        {
+            return dbSet.Where(c => !c.IsDeleted)
+                .Include(c => c.Tags)
+                    .Where(r => !r.IsDeleted)
+                .Include(c => c.Category);
+        }
+
+        public IQueryable<Book> FindInclude(Expression<Func<Book, bool>> predicate)
+        {
+            return dbSet.Where(predicate).Where(c => !c.IsDeleted)
+                .Include(c => c.Tags)
+                    .Where(r => !r.IsDeleted)
+                .Include(c => c.Category);
+        }
+    }
+}
