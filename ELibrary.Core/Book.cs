@@ -17,6 +17,10 @@ namespace ELibrary.Core
         /// </summary>
         public string Code { get; set; }
         /// <summary>
+        /// Id of the cateogry
+        /// </summary>
+        public int? CategoryId { get; set; }
+        /// <summary>
         /// Cateogry of book
         /// </summary>
         public Category Category { get; set; }
