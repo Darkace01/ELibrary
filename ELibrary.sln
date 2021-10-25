@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELibrary.Utility", "ELibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELibrary", "ELibrary\ELibrary.csproj", "{AEEB0B5F-5A69-47FD-8D96-024CA0C345F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELibrary.ViewModel", "ELibrary.ViewModel\ELibrary.ViewModel.csproj", "{C4960633-6944-4141-AFED-6B2989EE518B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{AEEB0B5F-5A69-47FD-8D96-024CA0C345F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEEB0B5F-5A69-47FD-8D96-024CA0C345F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEEB0B5F-5A69-47FD-8D96-024CA0C345F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4960633-6944-4141-AFED-6B2989EE518B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4960633-6944-4141-AFED-6B2989EE518B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4960633-6944-4141-AFED-6B2989EE518B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4960633-6944-4141-AFED-6B2989EE518B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{AC23955C-B899-4F38-86CD-A988EF025CAF} = {5998060E-B57D-4F9F-B847-CD40C159F3FB}
 		{D047E147-BA11-470A-AEDB-FEA4863AD963} = {5998060E-B57D-4F9F-B847-CD40C159F3FB}
 		{AEEB0B5F-5A69-47FD-8D96-024CA0C345F5} = {72FAFC3B-CFBE-4683-A322-4908459D7EA3}
+		{C4960633-6944-4141-AFED-6B2989EE518B} = {5998060E-B57D-4F9F-B847-CD40C159F3FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7FFC707-8427-40FA-A9E8-01D7CDEBFE4D}
