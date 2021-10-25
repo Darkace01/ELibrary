@@ -1,5 +1,7 @@
 using ELibrary.Core;
 using ELibrary.Data;
+using ELibrary.Service.Contract;
+using ELibrary.Service.Implementation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorPages();
 
+// Identity Dependency Injection
 builder.Services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
 builder.Services.AddScoped<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
@@ -21,6 +24,10 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
         options.Password.RequiredLength = 6;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+//Service Manager DI
+builder.Services.AddScoped<IRepositoryServiceManager, RepositoryServiceManager>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

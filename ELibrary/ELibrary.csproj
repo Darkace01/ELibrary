@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ELibrary.Core\ELibrary.Core.csproj" />
     <ProjectReference Include="..\ELibrary.Data\ELibrary.Data.csproj" />
+    <ProjectReference Include="..\ELibrary.Service\ELibrary.Service.csproj" />
   </ItemGroup>
 
 </Project>
