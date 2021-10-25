@@ -1,0 +1,50 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<main class="page-section inner-page-sec-padding-bottom mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+                <form id="account" method="post">
+                    <div class="login-form">
+                        <h4 class="login-title">Returning User</h4>
+                        <p><span class="font-weight-bold">I am a returning user</span></p>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-md-12 col-12 mb--15">
+                                <label asp-for="Input.Email" ></label>
+                                <input asp-for="Input.Email" class="mb-0 form-control" autocomplete="username" aria-required="true" placeholder="Enter you email address here..."/>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 mb--20">
+                                <label asp-for="Input.Password" ></label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Enter your password" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <button id="login-submit" type="submit" class="btn btn-outlined">Log in</button>
+                            </div>
+                            <div class="col-md-12">
+                                <p>
+                                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                                </p>
+                                <p>
+                                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

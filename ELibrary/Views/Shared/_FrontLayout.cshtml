@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/theme/front/css/plugins.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="~/theme/front/css/main.css" />
+    <title>@ViewData["Title"] - ELibrary</title>
+</head>
+<body>
+    <div class="site-wrapper" id="top">
+        <partial name="_NavBar" />
+        @RenderBody()
+    </div>
+    <partial name="_Footer" />
+    <script src="~/theme/front/js/plugins.js"></script>
+    <script src="~/theme/front/js/custom.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

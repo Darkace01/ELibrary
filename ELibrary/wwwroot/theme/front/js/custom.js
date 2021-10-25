@@ -414,24 +414,24 @@ jQuery(document).ready(function($) {
     /*--
     	MailChimp
     -----------------------------------*/
-    $('#mc-form').ajaxChimp({
-        language: 'en',
-        callback: mailChimpResponse,
-        // ADD YOUR MAILCHIMP URL BELOW HERE!
-        url: 'http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef'
+    //$('#mc-form').ajaxChimp({
+    //    language: 'en',
+    //    callback: mailChimpResponse,
+    //    // ADD YOUR MAILCHIMP URL BELOW HERE!
+    //    url: 'http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef'
 
-    });
+    //});
 
-    function mailChimpResponse(resp) {
+    //function mailChimpResponse(resp) {
 
-        if (resp.result === 'success') {
-            $('.mailchimp-success').html('' + resp.msg).fadeIn(900);
-            $('.mailchimp-error').fadeOut(400);
+    //    if (resp.result === 'success') {
+    //        $('.mailchimp-success').html('' + resp.msg).fadeIn(900);
+    //        $('.mailchimp-error').fadeOut(400);
 
-        } else if (resp.result === 'error') {
-            $('.mailchimp-error').html('' + resp.msg).fadeIn(900);
-        }
-    }
+    //    } else if (resp.result === 'error') {
+    //        $('.mailchimp-error').html('' + resp.msg).fadeIn(900);
+    //    }
+    //}
 
 
     /*-------------------------------------
