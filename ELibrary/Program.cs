@@ -1,3 +1,4 @@
+using ELibrary.Core;
 using ELibrary.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,16 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddRazorPages();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+builder.Services.AddScoped<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
+    options =>
+    {
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequiredLength = 6;
+    })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
