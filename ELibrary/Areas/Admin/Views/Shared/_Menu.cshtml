@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+<div class="menu-w color-scheme-light color-style-transparent menu-position-side menu-side-left menu-layout-compact sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-has-selected-link">
+    <div class="logo-w">
+        <a class="logo" asp-controller="home" asp-action="index">
+            <div class="logo-element"></div>
+            <div class="logo-label">
+                Clean Admin
+            </div>
+        </a>
+    </div>
+    <div class="logged-user-w avatar-inline">
+        <div class="logged-user-i">
+            <div class="avatar-w">
+                <img alt="" src="https://source.unsplash.com/random/400x400/?user">
+            </div>
+            <div class="logged-user-info-w">
+                <div class="logged-user-name">
+                    @User.Identity.Name
+                </div>
+                <div class="logged-user-role">
+                    @*@User.Claims.FirstOrDefault().*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <ul class="main-menu">
+            <li class="sub-header">
+                <span>Controls</span>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="index">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-layout"></div>
+                    </div>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="courses">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-book"></div>
+                    </div>
+                    <span>Course</span>
+                </a>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="students">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-user"></div>
+                    </div>
+                    <span>Student</span>
+                </a>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="tutors">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-user-plus"></div>
+                    </div>
+                    <span>Tutor</span>
+                </a>
+            </li>
+
+        </ul>
+
+    <div class="side-menu-magic">
+        <h4>
+            Light Admin
+        </h4>
+        <p>Clean Bootstrap 4 Template</p>
+        <p>Clean Bootstrap 4 Template</p>
+        <p>Clean Bootstrap 4 Template</p>
+        <p>Clean Bootstrap 4 Template</p>
+        <div class="btn-w">
+            <a class="btn btn-white btn-rounded"
+               href="https://themeforest.net/item/light-admin-clean-bootstrap-dashboard-html-template/19760124?ref=Osetin"
+               target="_blank">Purchase Now</a>
+        </div>
+    </div>
+</div>

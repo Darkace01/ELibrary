@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] - OnlineSchool</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="@ViewData["Title"] - OnlineSchool" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="favicon.png" rel="shortcut icon">
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
+    <link href="~/theme/css/select2.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/theme/css/main.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="menu-position-side menu-side-left full-screen with-content-panel">
+    <div class="layout-w">
+        <partial name="_MobileMenu" />
+        <partial name="_Menu" />
+        <div class="content-w">
+            @* NavBar *@
+            <partial name="_NavBar" />
+            <div class="content-i">
+                <div class="content-box">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - OnlineSchool - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/theme/js/popper.min.js"></script>
+    <script src="~/theme/js/moment.js"></script>
+    <script src="~/theme/js/Chart.min.js"></script>
+    <script src="~/theme/js/select2.full.min.js"></script>
+    <script src="~/theme/js/jquery.barrating.min.js"></script>
+    <script src="~/theme/js/validator.min.js"></script>
+    <script src="~/theme/js/daterangepicker.js"></script>
+    <script src="~/theme/js/main.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
