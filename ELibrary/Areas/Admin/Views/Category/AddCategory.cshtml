@@ -1,0 +1,39 @@
+﻿@model ELibrary.ViewModel.AddCategoryViewModel
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Tutor
+    </h6>
+    <div class="element-box">
+        <form method="post" asp-action="SaveCategory">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="DefaultCategory" /> @Html.DisplayNameFor(model => model.DefaultCategory)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFeatured" /> @Html.DisplayNameFor(model => model.IsFeatured)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+   </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

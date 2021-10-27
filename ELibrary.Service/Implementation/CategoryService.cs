@@ -66,6 +66,15 @@ namespace ELibrary.Service.Implementation
             }
         }
 
+        public async Task Update(Category category)
+        {
+            if (!ValidateBusinessCategoryDetails(category))
+                throw new Exception(); // todo: return appropriate exception
+
+            _uow.CategoryRepo.Update(category);
+            await _uow.Save();
+        }
+
         public async Task Delete(Category category)
         {
             _uow.CategoryRepo.Remove(category);

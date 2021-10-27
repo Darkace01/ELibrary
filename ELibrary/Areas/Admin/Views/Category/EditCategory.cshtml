@@ -1,0 +1,39 @@
+﻿@model ELibrary.ViewModel.EditCategoryViewModel
+
+@{
+    ViewData["Title"] = "EditCategory";
+}
+
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Course
+    </h6>
+    <div class="element-box">
+        <form method="post" asp-action="CategoryUpdate" asp-controller="category" asp-area="admin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Id" class="form-control" hidden/>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="DefaultCategory" /> @Html.DisplayNameFor(model => model.DefaultCategory)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFeatured" /> @Html.DisplayNameFor(model => model.IsFeatured)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+   </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

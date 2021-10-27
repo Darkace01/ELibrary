@@ -2,7 +2,6 @@
 using ELibrary.Service.Contract;
 using AutoMapper;
 using ELibrary.ViewModel;
-using System.Linq;
 
 namespace ELibrary.Areas.Admin.Controllers
 {

@@ -58,5 +58,6 @@ namespace ELibrary.Service.Contract
         /// </summary>
         /// <returns></returns>
         Category GetDefaultBusinessCategory();
+        Task Update(Category category);
     }
 }
