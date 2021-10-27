@@ -17,6 +17,16 @@
                         <div class="row">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="col-md-12 col-12 mb--15">
+                                <label asp-for="Input.FullName"></label>
+                                <input asp-for="Input.FullName" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter Your Full Name Here.."/>
+                                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12 col-12 mb--15">
+                                <label asp-for="Input.MatricNo"></label>
+                                <input asp-for="Input.MatricNo" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter Your Matric Number Here.."/>
+                                <span asp-validation-for="Input.MatricNo" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12 col-12 mb--15">
                                 <label asp-for="Input.Email"></label>
                                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter Your Email Address Here.."/>
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>

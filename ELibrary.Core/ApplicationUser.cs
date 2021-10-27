@@ -17,6 +17,6 @@ namespace ELibrary.Core
         /// <summary>
         /// Users matric no
         /// </summary>
-        public string MatricNo { get; set; }
+        public string? MatricNo { get; set; }
     }
 }

@@ -20,10 +20,10 @@
                             <h3>Information</h3>
                         </div>
                         <ul class="footer-list normal-list">
-                            <li><a href="">Prices drop</a></li>
-                            <li><a href="">New products</a></li>
-                            <li><a href="">Best sales</a></li>
-                            <li><a href="">Contact us</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                            <li><a asp-controller="Account" asp-area="Admin" asp-action="Register">Admin Register</a></li>
+                            <li><a asp-controller="Account" asp-area="Admin" asp-action="SignIn">Admin Sign In</a></li>
                             <li><a href="">Sitemap</a></li>
                         </ul>
                     </div>

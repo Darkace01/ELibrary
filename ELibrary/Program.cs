@@ -1,7 +1,11 @@
+using AutoMapper;
 using ELibrary.Core;
 using ELibrary.Data;
+using ELibrary.Data.Contract;
+using ELibrary.Data.Implementation;
 using ELibrary.Service.Contract;
 using ELibrary.Service.Implementation;
+using ELibrary.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +31,18 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
 
 //Service Manager DI
 builder.Services.AddScoped<IRepositoryServiceManager, RepositoryServiceManager>();
+
+builder.Services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitOfWork));
+
+//repos
+builder.Services.AddScoped(serviceType: typeof(ICoreRepo<>), implementationType: typeof(CoreRepo<>));
+
+// auto mapper configuration
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+//var mappingConfig = new MapperConfiguration(mc =>
+//{
+//    mc.AddProfile(new AutoMapperProfile());
+//});
 
 builder.Services.AddControllersWithViews();
 

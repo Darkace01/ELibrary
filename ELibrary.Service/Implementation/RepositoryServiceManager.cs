@@ -15,6 +15,12 @@ namespace ELibrary.Service.Implementation
         private ICategoryService _categoryService;
         private IBookService _bookService;
 
+        public RepositoryServiceManager(IUnitOfWork uow)
+        {
+            this.uow = uow;
+        }
+
+
 
         public ITagService TagService
         {

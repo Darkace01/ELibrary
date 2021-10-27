@@ -2,10 +2,11 @@
 
 namespace ELibrary.Areas.Admin.Controllers
 {
-    [Area("admin")]
+    [Area("Admin")]
     [Route("admin")]
-    public class HomeController : Controller
+    public class CategoryController : Controller
     {
+        [Route("categories")]
         public IActionResult Index()
         {
             return View();

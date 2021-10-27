@@ -16,26 +16,16 @@
     <link rel="stylesheet" href="~/theme/dashboard/css/main.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body class="menu-position-side menu-side-left full-screen with-content-panel">
-    <div class="layout-w">
-        <partial name="_MobileMenu" />
-        <partial name="_Menu" />
-        <div class="content-w">
-            @* NavBar *@
-            <partial name="_NavBar" />
-            <div class="content-i">
-                <div class="content-box">
-                    @RenderBody()
-                </div>
-            </div>
-        </div>
+<body class="auth-wrapper">
+    <div class="all-wrapper menu-side with-pattern">
+        @RenderBody()
     </div>
 
     @*<footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - OnlineSchool - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2021 - OnlineSchool - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>*@
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/theme/dashboard/js/popper.min.js"></script>
     <script src="~/theme/dashboard/js/moment.js"></script>
@@ -45,8 +35,6 @@
     <script src="~/theme/dashboard/js/validator.min.js"></script>
     <script src="~/theme/dashboard/js/daterangepicker.js"></script>
     <script src="~/theme/dashboard/js/main.js"></script>
-    <script src="~/theme/dashboard/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/theme/dashboard/js/jquery.dataTables.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

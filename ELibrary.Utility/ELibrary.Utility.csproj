@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ELibrary.Core\ELibrary.Core.csproj" />
+    <ProjectReference Include="..\ELibrary.ViewModel\ELibrary.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>

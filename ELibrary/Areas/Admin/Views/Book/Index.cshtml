@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ELibrary.ViewModel.BookViewModel>
+
+@{
+    ViewData["Title"] = "Book"; 
+}
+
+<div class="element-wrapper">
+    <div class="element-actions">
+        <a class="mr-2 mb-2 btn btn-primary btn-rounded" asp-action="AddCourse">Create New</a>
+    </div>
+    <h6 class="element-header">
+        Books
+    </h6>
+    <div class="table-responsive">
+        <table class="table table-lightborder">
+            <thead>
+        <tr>
+            <th>
+                        @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.Tags)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.Tags)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.ImageUrl)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                                <a class="mr-2 mb-2 btn btn-secondary" asp-controller="Admin" asp-action="EditCourse" asp-route-id="@item.Id">Edit</a>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

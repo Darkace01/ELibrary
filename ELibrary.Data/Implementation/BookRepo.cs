@@ -24,7 +24,7 @@ namespace ELibrary.Data.Implementation
         public Book GetInclude(int id)
         {
             return dbSet.Where(c => c.Id == id && !c.IsDeleted)
-                .Include(c => c.Tags)
+                //.Include(c => c.Tags)
                 .Include(c => c.Category)
                 .FirstOrDefault();
         }
@@ -32,16 +32,14 @@ namespace ELibrary.Data.Implementation
         public IQueryable<Book> GetAllInclude()
         {
             return dbSet.Where(c => !c.IsDeleted)
-                .Include(c => c.Tags)
-                    .Where(r => !r.IsDeleted)
+                //.Include(c => c.Tags)
                 .Include(c => c.Category);
         }
 
         public IQueryable<Book> FindInclude(Expression<Func<Book, bool>> predicate)
         {
             return dbSet.Where(predicate).Where(c => !c.IsDeleted)
-                .Include(c => c.Tags)
-                    .Where(r => !r.IsDeleted)
+                //.Include(c => c.Tags)
                 .Include(c => c.Category);
         }
     }
