@@ -1,0 +1,185 @@
+﻿@model ELibrary.ViewModel.EditBookViewModel
+
+@{
+    ViewData["Title"] = "Add Book";
+}
+
+
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Book
+    </h6>
+    <div class="element-box">
+        <form asp-action="AddBook" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Code" class="control-label"></label>
+                        <input asp-for="Code" class="form-control" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Model.ImageUrl" />
+                        <input asp-for="ImageFile" class="form-control" accept="image/x-png,image/jpg,image/jpeg" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        <p class="text-danger mb-0" id="imgFileSizeError"></p>
+                        <p class="text-danger mb-0" id="imgFileFormatError"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CategoryId" class="control-label"></label>
+                        <select asp-for="CategoryId" class="form-control">
+                            @{
+                                @foreach (var tag in ViewBag.Categories)
+                                {
+                                    if(tag == Model.CategoryId)
+                                    {
+                                        <option selected="selected">@tag</option>
+                                    }
+                                    {
+                                        <option>@tag</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Tags" class="control-label"></label>
+                        @*<input asp-for="Tags" class="form-control" />*@
+                        <select class="form-control" multiple="multiple" id="tag-selection" name="Tags">
+                        </select>
+                        <span asp-validation-for="Tags" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" row="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    $(document).ready(function () {
+            $('#tag-selection').select2({
+                tags: true,
+                tokenSeparators: [','],
+                maximumSelectionLength: 5
+            })
+        });
+
+    var imgFileSizeError = document.getElementById("imgFileSizeError");
+    var imgFile = document.getElementById("ImageFile");
+    var imgFileFormatError = document.getElementById("imgFileFormatError");
+
+
+    $(document).ready(function () {
+        $("#ImageFile").change(function () {
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        })
+    })
+
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+                $("#targetImg").attr('src', _file.target.result);
+                $("#imgPreview").show();
+            }
+        }
+    }
+
+
+    $(document).ready(function () {
+        $('#ImageFile').bind('change', function () {
+            var exten = imgFile.value.split('.').pop();
+            exten = exten.toLowerCase();
+            if (!(exten == "png" || exten == "jpg" || exten == "jpeg")) {
+                imgFileFormatError.textContent = "Invalid format.";
+                //alertify.warning("Invalid format");
+
+            } else {
+                imgFileFormatError.textContent = "";
+            }
+
+            // check if the file is larger than 4mb
+            if (this.files[0].size > (10 * 1000 * 1024)) {
+                imgFileSizeError.textContent = "File too large. File should be less than 10mb";
+                //alertify.warning("File too large. File should be less than 4mb");
+            }
+            else {
+                // passed.
+                imgFileSizeError.textContent = "";
+            }
+        });
+    })
+
+
+    function validate() {
+        //if (imgFile.files[0] == null)
+        //    return true;
+
+        if (imgFile.files[0].size > (10 * 1000 * 1024)) {
+
+            imgFileSizeError.textContent = "File too large. File should be less than 10mb";
+            //file too large
+            imgFile.focus();
+
+            return false;
+        }
+        var exten = imgFile.value.split('.').pop();
+        exten = exten.toLowerCase();
+        if (!(exten == "png" || exten == "jpg" || exten == "jpeg")) {
+
+            imgFileFormatError.textContent = "Invalid format.";
+            //invalid format
+            imgFile.focus();
+
+            return false;
+
+        }
+
+    }
+</script>
+}

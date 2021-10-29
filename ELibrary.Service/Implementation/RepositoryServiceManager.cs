@@ -1,10 +1,7 @@
 ﻿using ELibrary.Data.Contract;
 using ELibrary.Service.Contract;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace ELibrary.Service.Implementation
 {
@@ -14,10 +11,14 @@ namespace ELibrary.Service.Implementation
         private ITagService _tagService;
         private ICategoryService _categoryService;
         private IBookService _bookService;
+        private IFileStorageService _fileStorageService;
+        private IEmailSender _emailSender;
+        private readonly IConfiguration config;
 
-        public RepositoryServiceManager(IUnitOfWork uow)
+        public RepositoryServiceManager(IUnitOfWork uow, IConfiguration config)
         {
             this.uow = uow;
+            this.config = config;
         }
 
 
@@ -52,6 +53,28 @@ namespace ELibrary.Service.Implementation
                     _bookService = new BookService(uow);
 
                 return _bookService;
+            }
+        }
+        
+        public IFileStorageService FileStorageService
+        {
+            get
+            {
+                if (_fileStorageService == null)
+                    _fileStorageService = new FileStorageService(config);
+
+                return _fileStorageService;
+            }
+        }
+        
+        public IEmailSender EmailSender
+        {
+            get
+            {
+                if (_emailSender == null)
+                    _emailSender = new EmailSender(config);
+
+                return _emailSender;
             }
         }
     }

@@ -16,7 +16,8 @@ namespace ELibrary.Utility
             // From Model => To View Model
             // Book Map
             CreateMap<Book, BookViewModel>().ReverseMap();
-
+            CreateMap<Book, EditBookViewModel>().ReverseMap();
+            CreateMap<AddBookViewModel, Book>().ReverseMap();
 
             // Category Map
             CreateMap<Category, CategoryViewModel>();

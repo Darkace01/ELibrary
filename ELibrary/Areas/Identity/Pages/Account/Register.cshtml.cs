@@ -2,24 +2,15 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using ELibrary.Core;
+using ELibrary.EmailHandler;
+using ELibrary.Service.Contract;
 using ELibrary.Utility;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 
 namespace ELibrary.Areas.Identity.Pages.Account
 {
@@ -29,7 +20,9 @@ namespace ELibrary.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IUserStore<ApplicationUser> _userStore;
-        //private readonly IUserEmailStore<ApplicationUser> _emailStore;
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _env;
+        private readonly IRepositoryServiceManager _repositoryService;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
 
@@ -37,7 +30,7 @@ namespace ELibrary.Areas.Identity.Pages.Account
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger, RoleManager<ApplicationRole> roleManager)
+            ILogger<RegisterModel> logger, RoleManager<ApplicationRole> roleManager, IConfiguration configuration, IWebHostEnvironment env, IRepositoryServiceManager repositoryService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,6 +39,9 @@ namespace ELibrary.Areas.Identity.Pages.Account
             _logger = logger;
             //_emailSender = emailSender;
             _roleManager = roleManager;
+            _configuration = configuration;
+            _env = env;
+            _repositoryService = repositoryService;
         }
 
         /// <summary>
@@ -147,6 +143,11 @@ namespace ELibrary.Areas.Identity.Pages.Account
                     if (!await _roleManager.RoleExistsAsync(AppConstant.PublicUserRole))
                         await _roleManager.CreateAsync(new ApplicationRole(AppConstant.PublicUserRole));
                     await _userManager.AddToRoleAsync(user, AppConstant.PublicUserRole);
+
+                    var emailTemplateBuilder = new EmailTemplateBuilder(_configuration, _env);
+                    string profileUrl = "https://elibrary.com/company/details";
+                    var mailBody = emailTemplateBuilder.BuildAccountConfirmationTemplate(Input.FullName, Input.Email, Input.Password, profileUrl);
+                    await _repositoryService.EmailSender.SendEmailAsync(Input.Email, "Account confirmation", mailBody);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);

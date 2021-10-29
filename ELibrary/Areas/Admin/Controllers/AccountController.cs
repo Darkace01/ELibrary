@@ -1,4 +1,6 @@
 ﻿using ELibrary.Core;
+using ELibrary.EmailHandler;
+using ELibrary.Service.Contract;
 using ELibrary.Utility;
 using ELibrary.ViewModel;
 using Microsoft.AspNetCore.Identity;
@@ -19,13 +21,19 @@ namespace ELibrary.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _env;
+        private readonly IRepositoryServiceManager _repositoryService;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IUserStore<ApplicationUser> userStore)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IUserStore<ApplicationUser> userStore, IConfiguration configuration, IWebHostEnvironment env, IRepositoryServiceManager repositoryService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _userStore = userStore;
+            _configuration = configuration;
+            _env = env;
+            _repositoryService = repositoryService;
         }
 
         [Route("sign-in")]
@@ -91,6 +99,12 @@ namespace ELibrary.Areas.Admin.Controllers
                     if (!await _roleManager.RoleExistsAsync(AppConstant.AdminRole))
                         await _roleManager.CreateAsync(new ApplicationRole(AppConstant.AdminRole));
                     await _userManager.AddToRoleAsync(user, AppConstant.AdminRole);
+
+                    var emailTemplateBuilder = new EmailTemplateBuilder(_configuration, _env);
+                    string profileUrl = "https://elibrary.com/company/details";
+                    var mailBody = emailTemplateBuilder.BuildAccountConfirmationTemplate(model.FullName, model.Email, model.Password, profileUrl);
+                    await _repositoryService.EmailSender.SendEmailAsync(model.Email, "Account confirmation", mailBody);
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home", new { area = "admin" });
 
