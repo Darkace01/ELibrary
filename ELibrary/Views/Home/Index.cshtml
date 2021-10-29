@@ -1,6 +1,6 @@
-﻿@{
+﻿@model HomeViewModel;
+@{
     ViewData["Title"] = "Home Page";
-    Layout = "_FrontLayout";
 }
 
 <!--=================================
@@ -98,44 +98,29 @@
                         {"breakpoint":480, "settings": {"slidesToShow": 1} },
                         {"breakpoint":320, "settings": {"slidesToShow": 1} }
                     ]'>
-            @for (int i = 1; i <= 7; i++)
+            @foreach(var book in Model.books)
             {
                 <div class="single-slide">
                     <div class="product-card">
                         <div class="product-header">
-                            <a href="" class="author">
-                                Lpple
+                            <a asp-action="Detail" asp-route-id="@book.Id" class="author">
+                                By @book.Author
                             </a>
-                            <h3><a href="product-details.html">Revolutionize Your BOOK With</a></h3>
+                            @*<h3><a href="product-details.html">@book.</a></h3>*@
                         </div>
                         <div class="product-card--body">
                             <div class="card-image">
-                                <img src="image/products/product-1.jpg" alt="">
+                                <img src="@book.ImageUrl" alt="">
                                 <div class="hover-contents">
-                                    <a href="product-details.html" class="hover-image">
-                                        <img src="image/products/product-1.jpg" alt="">
-                                    </a>
                                     <div class="hover-btns">
-                                        <a href="cart.html" class="single-btn">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-                                        <a href="compare.html" class="single-btn">
-                                            <i class="fas fa-random"></i>
-                                        </a>
-                                        <a href="#" data-toggle="modal" data-target="#quickModal"
-                                       class="single-btn">
+                                        <a asp-action="Detail" asp-route-id="@book.Id" class="single-btn">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="price-block">
-                                <span class="price">£51.20</span>
-                                <del class="price-old">£51.20</del>
-                                <span class="price-discount">20%</span>
+                                <span class="price">@book.Name</span>
                             </div>
                         </div>
                     </div>
