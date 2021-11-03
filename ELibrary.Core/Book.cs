@@ -33,6 +33,10 @@ namespace ELibrary.Core
         /// </summary>
         public string ImageUrl { get; set; }
         /// <summary>
+        /// PDF Url
+        /// </summary>
+        public string PdfUrl { get; set; }
+        /// <summary>
         /// Book Author
         /// </summary>
         public string Author { get; set; }

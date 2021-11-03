@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
 using ELibrary.Core;
 using ELibrary.Service.Contract;
+using ELibrary.Utility;
 using ELibrary.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace ELibrary.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin")]
+    [Authorize(Roles = AppConstant.AdminRole)]
     public class CategoryController : Controller
     {
         private readonly IRepositoryServiceManager _repositoryService;

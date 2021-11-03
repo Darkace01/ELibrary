@@ -1,7 +1,7 @@
 ﻿@model ELibrary.ViewModel.EditBookViewModel
 
 @{
-    ViewData["Title"] = "Add Book";
+    ViewData["Title"] = "Edit Book";
 }
 
 
@@ -10,7 +10,11 @@
         Manage Book
     </h6>
     <div class="element-box">
-        <form asp-action="AddBook" enctype="multipart/form-data">
+        <form asp-action="EditBook" enctype="multipart/form-data">
+            <input asp-for="Id" hidden />
+            <input asp-for="PreviousImageUrl" hidden />
+            <input asp-for="PreviousPdfUrl" hidden />
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-6">
@@ -39,19 +43,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="CategoryId" class="control-label"></label>
-                        <select asp-for="CategoryId" class="form-control">
-                            @{
-                                @foreach (var tag in ViewBag.Categories)
-                                {
-                                    if(tag == Model.CategoryId)
-                                    {
-                                        <option selected="selected">@tag</option>
-                                    }
-                                    {
-                                        <option>@tag</option>
-                                    }
-                                }
-                            }
+                        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name",Model.CategoryId))">
                         </select>
                         <span asp-validation-for="CategoryId" class="text-danger"></span>
                     </div>
@@ -61,6 +53,7 @@
                         <label asp-for="Tags" class="control-label"></label>
                         @*<input asp-for="Tags" class="form-control" />*@
                         <select class="form-control" multiple="multiple" id="tag-selection" name="Tags">
+                            <option selected value="@Model.Tags">@Model.Tags</option>
                         </select>
                         <span asp-validation-for="Tags" class="text-danger"></span>
                     </div>
@@ -78,7 +71,7 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Update" class="btn btn-primary" />
             </div>
         </form>
     </div>

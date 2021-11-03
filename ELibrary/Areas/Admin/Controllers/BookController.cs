@@ -4,16 +4,20 @@ using AutoMapper;
 using ELibrary.ViewModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ELibrary.Core;
+using Microsoft.AspNetCore.Authorization;
+using ELibrary.Utility;
 
 namespace ELibrary.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin")]
+    [Authorize(Roles = AppConstant.AdminRole)]
     public class BookController : Controller
     {
         private readonly IRepositoryServiceManager _repositoryService;
         private readonly IMapper _mapper;
-        private string container = "ebook";
+        private string imageContainer = "ebookimage";
+        private string pdfContainer = "ebook";
         public BookController(IRepositoryServiceManager repositoryService, IMapper mapper)
         {
             _repositoryService = repositoryService;
@@ -55,7 +59,11 @@ namespace ELibrary.Areas.Admin.Controllers
                 var book = _mapper.Map<Book>(model);
                 if (model.ImageFile != null)
                 {
-                    book.ImageUrl = await _repositoryService.FileStorageService.SaveFile(container, model.ImageFile);
+                    book.ImageUrl = await _repositoryService.FileStorageService.SaveFile(imageContainer, model.ImageFile);
+                }
+                if (model.PdfFile != null)
+                {
+                    book.PdfUrl = await _repositoryService.FileStorageService.SaveFile(pdfContainer, model.PdfFile);
                 }
                 await _repositoryService.BookService.Add(book);
                 return RedirectToAction(nameof(Index));
@@ -63,10 +71,12 @@ namespace ELibrary.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                var categories = _repositoryService.CategoryService.GetAll();
+                ViewBag.Categories = new SelectList(categories, "Id", "Name");
                 return View(nameof(AddBook), model);
             }
         }
-
+        
         [Route("edit-book/{id}")]
         public IActionResult EditBook(int id)
         {
@@ -76,10 +86,49 @@ namespace ELibrary.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var book = _mapper.Map<EditBookViewModel>(model);
+            book.PreviousImageUrl = model.ImageUrl;
+            book.PreviousPdfUrl = model.PdfUrl;
             var categories = _repositoryService.CategoryService.GetAll();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Categories = categories.ToList();
             return View(book);
         }
+
+        [HttpPost("edit-book")]
+        public async Task<IActionResult> EditBook(EditBookViewModel model)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(model.Tags))
+                {
+                    model.Tags = model.Tags.ToLower();
+                    var listOfTags = model.Tags.Split(',').ToList();
+                    listOfTags = listOfTags.Distinct().ToList();
+
+                    var tagsModel = listOfTags.Select(t => new AddTagViewModel() { Name = t, ValidTagName = _repositoryService.TagService.CheckTagName(t) }).ToList();
+                    var _tags = tagsModel.Where(t => t.ValidTagName).Select(t => new Tag { Name = t.Name, IsFeatured = true });
+                    model.Tags = string.Join(',', tagsModel.Select(t => t.Name));
+                    await _repositoryService.TagService.AddRange(_tags);
+                }
+                var book = _mapper.Map<Book>(model);
+                book.ImageUrl = model.ImageFile != null
+                    ? await _repositoryService.FileStorageService.EditFile(imageContainer, model.ImageFile, model.PreviousImageUrl)
+                    : model.PreviousImageUrl;
+
+                book.PdfUrl = model.PreviousPdfUrl;
+
+                await _repositoryService.BookService.Update(book);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                var categories = _repositoryService.CategoryService.GetAll();
+                ViewBag.Categories = new SelectList(categories, "Id", "Name");
+                return View(nameof(EditBook), model);
+            }
+        }
+
+        
 
     }
 }

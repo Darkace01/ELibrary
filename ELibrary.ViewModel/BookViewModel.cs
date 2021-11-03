@@ -17,6 +17,7 @@ namespace ELibrary.ViewModel
         public CategoryViewModel Category { get; set; }
         public string Tags { get; set; }
         public string ImageUrl { get; set; }
+        public string PdfUrl { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
@@ -31,8 +32,10 @@ namespace ELibrary.ViewModel
         [Display(Name = "Category")]
         public int? CategoryId { get; set; }
         public string Tags { get; set; }
-        public string ImageUrl { get; set; }
+        public string PdfUrl { get; set; }
         public IFormFile ImageFile { get; set; }
+        public string ImageUrl { get; set; }
+        public IFormFile PdfFile { get; set; }
         [Required]
         public string Author { get; set; }
         [Required]
@@ -41,6 +44,7 @@ namespace ELibrary.ViewModel
     
     public class EditBookViewModel
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -48,11 +52,15 @@ namespace ELibrary.ViewModel
         [Display(Name = "Category")]
         public int? CategoryId { get; set; }
         public string Tags { get; set; }
+        public string PdfUrl { get; set; }
+        public IFormFile PdfFile { get; set; }
         public string ImageUrl { get; set; }
         public IFormFile ImageFile { get; set; }
         [Required]
         public string Author { get; set; }
         [Required]
         public string Description { get; set; }
+        public string PreviousImageUrl { get; set; }
+        public string PreviousPdfUrl { get; set; }
     }
 }

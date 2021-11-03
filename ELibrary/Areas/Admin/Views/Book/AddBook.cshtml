@@ -34,6 +34,7 @@
                         <p class="text-danger mb-0" id="imgFileFormatError"></p>
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -53,11 +54,21 @@
                     </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">PDF File</label>
+                        <input asp-for="PdfFile" class="form-control" accept="file/pdf" />
+                        <span asp-validation-for="PdfFile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Author" class="control-label"></label>
+                        <input asp-for="Author" class="form-control" />
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

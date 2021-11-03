@@ -1,79 +1,43 @@
-﻿@{
+﻿@model ELibrary.ViewModel.DashboardViewModel
+@{
     ViewData["Title"] = "Dashboard";
 }
 
 <div class="row">
     <div class="col-sm-12">
         <div class="element-wrapper">
-            <div class="element-actions">
-                <form class="form-inline justify-content-sm-end">
-                    <select class="form-control form-control-sm rounded">
-                        <option value="Pending">
-                            Today
-                        </option>
-                        <option value="Active">
-                            Last Week
-                        </option>
-                        <option value="Cancelled">
-                            Last 30 Days
-                        </option>
-                    </select>
-                </form>
-            </div>
             <h6 class="element-header">
                 Sales Dashboard
             </h6>
             <div class="element-content">
                 <div class="row">
-                    <div class="col-sm-4 col-xxxl-3">
+                    <div class="col-sm-4 ">
                         <a class="element-box el-tablo" href="#">
                             <div class="label">
-                                Products Sold
+                                Books In Stock
                             </div>
                             <div class="value">
-                                57
-                            </div>
-                            <div class="trending trending-up-basic">
-                                <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
+                                @Model.NumberOfBooks
                             </div>
                         </a>
                     </div>
-                    <div class="col-sm-4 col-xxxl-3">
+                    <div class="col-sm-4 ">
                         <a class="element-box el-tablo" href="#">
                             <div class="label">
-                                Gross Profit
+                                Total Users
                             </div>
                             <div class="value">
-                                $457
-                            </div>
-                            <div class="trending trending-down-basic">
-                                <span>12%</span><i class="os-icon os-icon-arrow-down"></i>
+                                @Model.NumberOfUsers
                             </div>
                         </a>
                     </div>
-                    <div class="col-sm-4 col-xxxl-3">
+                    <div class="col-sm-4 ">
                         <a class="element-box el-tablo" href="#">
                             <div class="label">
-                                New Customers
+                                Categories
                             </div>
                             <div class="value">
-                                125
-                            </div>
-                            <div class="trending trending-down-basic">
-                                <span>9%</span><i class="os-icon os-icon-arrow-down"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="d-none d-xxxl-block col-xxxl-3">
-                        <a class="element-box el-tablo" href="#">
-                            <div class="label">
-                                Refunds Processed
-                            </div>
-                            <div class="value">
-                                $294
-                            </div>
-                            <div class="trending trending-up-basic">
-                                <span>12%</span><i class="os-icon os-icon-arrow-up2"></i>
+                                @Model.NumberCategories
                             </div>
                         </a>
                     </div>
@@ -86,7 +50,7 @@
     <div class="col-sm-8 col-xxxl-6">
         <div class="element-wrapper">
             <h6 class="element-header">
-                New Orders
+                New Books
             </h6>
             <div class="element-box">
                 <div class="table-responsive">
@@ -94,142 +58,42 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Customer
+                                    Title
                                 </th>
                                 <th>
-                                    Products
+                                    Cover Image
                                 </th>
                                 <th class="text-center">
-                                    Status
+                                    Category
                                 </th>
                                 <th class="text-right">
-                                    Total
+                                    Author
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach(var book in Model.Books){
                             <tr>
                                 <td class="nowrap">
-                                    John Mayers
+                                    @book.Name
                                 </td>
                                 <td>
                                     <div class="cell-image-list">
                                         <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
+                                             style="background-image: url(@book.ImageUrl)">
                                         </div>
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
-                                        </div>
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
-                                        </div>
-                                        <div class="cell-img-more">
-                                            + 5 more
-                                        </div>
+                                        
                                     </div>
                                 </td>
-                                <td class="text-center">
-                                    <div class="status-pill green" data-title="Complete"
-                                         data-toggle="tooltip"></div>
-                                </td>
-                                <td class="text-right">
-                                    $354
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="nowrap">
-                                    Kelly Brans
+                                <td >
+                                    @book.Category.Name
                                 </td>
                                 <td>
-                                    <div class="cell-image-list">
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?happy)">
-                                        </div>
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="status-pill red" data-title="Cancelled"
-                                         data-toggle="tooltip"></div>
-                                </td>
-                                <td class="text-right">
-                                    $94
+                                    @book.Author
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="nowrap">
-                                    Tim Howard
-                                </td>
-                                <td>
-                                    <div class="cell-image-list">
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?color)">
-                                        </div>
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?yes)">
-                                        </div>
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?text)">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="status-pill green" data-title="Complete"
-                                         data-toggle="tooltip"></div>
-                                </td>
-                                <td class="text-right">
-                                    $156
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="nowrap">
-                                    Joe Trulli
-                                </td>
-                                <td>
-                                    <div class="cell-image-list">
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
-                                        </div>
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
-                                        </div>
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
-                                        </div>
-                                        <div class="cell-img-more">
-                                            + 2 more
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="status-pill yellow" data-title="Pending"
-                                         data-toggle="tooltip"></div>
-                                </td>
-                                <td class="text-right">
-                                    $1,120
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="nowrap">
-                                    Jerry Lingard
-                                </td>
-                                <td>
-                                    <div class="cell-image-list">
-                                        <div class="cell-img"
-                                             style="background-image: url(https://source.unsplash.com/random/400x400/?joy)">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="status-pill green" data-title="Complete"
-                                         data-toggle="tooltip"></div>
-                                </td>
-                                <td class="text-right">
-                                    $856
-                                </td>
-                            </tr>
+                            
+                           }
                         </tbody>
                     </table>
                 </div>
@@ -240,13 +104,13 @@
         <!--START - Top Selling Chart-->
         <div class="element-wrapper">
             <h6 class="element-header">
-                Top Selling Today
+                Top Books
             </h6>
             <div class="element-box">
                 <div class="el-chart-w">
-                    <canvas height="120" id="donutChart" width="120"></canvas>
+                    <canvas height="120" id="booksChart" width="120"></canvas>
                     <div class="inside-donut-chart-label">
-                        <strong>142</strong><span>Total Orders</span>
+                        <strong>@Model.NumberOfBooks</strong><span>Total Books</span>
                     </div>
                 </div>
                 <div class="el-legend condensed">
@@ -256,9 +120,9 @@
                                 <div class="legend-pin legend-pin-squared"
                                      style="background-color: #6896f9;"></div>
                                 <div class="legend-value">
-                                    <span>Prada</span>
+                                    <span>Books</span>
                                     <div class="legend-sub-value">
-                                        14 Pairs
+                                        @Model.NumberOfBooks
                                     </div>
                                 </div>
                             </div>
@@ -266,9 +130,9 @@
                                 <div class="legend-pin legend-pin-squared"
                                      style="background-color: #85c751;"></div>
                                 <div class="legend-value">
-                                    <span>Maui Jim</span>
+                                    <span>Users</span>
                                     <div class="legend-sub-value">
-                                        26 Pairs
+                                        @Model.NumberOfUsers
                                     </div>
                                 </div>
                             </div>
@@ -278,19 +142,9 @@
                                 <div class="legend-pin legend-pin-squared"
                                      style="background-color: #806ef9;"></div>
                                 <div class="legend-value">
-                                    <span>Gucci</span>
+                                    <span>Categories</span>
                                     <div class="legend-sub-value">
-                                        17 Pairs
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="legend-value-w">
-                                <div class="legend-pin legend-pin-squared"
-                                     style="background-color: #d97b70;"></div>
-                                <div class="legend-value">
-                                    <span>Armani</span>
-                                    <div class="legend-sub-value">
-                                        12 Pairs
+                                        @Model.NumberCategories
                                     </div>
                                 </div>
                             </div>
@@ -301,117 +155,46 @@
         </div>
         <!--END - Top Selling Chart-->
     </div>
-    <div class="d-none d-xxxl-block col-xxxl-6">
-        <!--START - Questions per Product-->
-        <div class="element-wrapper">
-            <div class="element-actions">
-                <form class="form-inline justify-content-sm-end">
-                    <select class="form-control form-control-sm rounded">
-                        <option value="Pending">
-                            Today
-                        </option>
-                        <option value="Active">
-                            Last Week
-                        </option>
-                        <option value="Cancelled">
-                            Last 30 Days
-                        </option>
-                    </select>
-                </form>
-            </div>
-            <h6 class="element-header">
-                Inventory Stats
-            </h6>
-            <div class="element-box">
-                <div class="os-progress-bar primary">
-                    <div class="bar-labels">
-                        <div class="bar-label-left">
-                            <span class="bigger">Eyeglasses</span>
-                        </div>
-                        <div class="bar-label-right">
-                            <span class="info">25 items / 10 remaining</span>
-                        </div>
-                    </div>
-                    <div class="bar-level-1" style="width: 100%">
-                        <div class="bar-level-2" style="width: 70%">
-                            <div class="bar-level-3" style="width: 40%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="os-progress-bar primary">
-                    <div class="bar-labels">
-                        <div class="bar-label-left">
-                            <span class="bigger">Outwear</span>
-                        </div>
-                        <div class="bar-label-right">
-                            <span class="info">18 items / 7 remaining</span>
-                        </div>
-                    </div>
-                    <div class="bar-level-1" style="width: 100%">
-                        <div class="bar-level-2" style="width: 40%">
-                            <div class="bar-level-3" style="width: 20%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="os-progress-bar primary">
-                    <div class="bar-labels">
-                        <div class="bar-label-left">
-                            <span class="bigger">Shoes</span>
-                        </div>
-                        <div class="bar-label-right">
-                            <span class="info">15 items / 12 remaining</span>
-                        </div>
-                    </div>
-                    <div class="bar-level-1" style="width: 100%">
-                        <div class="bar-level-2" style="width: 60%">
-                            <div class="bar-level-3" style="width: 30%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="os-progress-bar primary">
-                    <div class="bar-labels">
-                        <div class="bar-label-left">
-                            <span class="bigger">Jeans</span>
-                        </div>
-                        <div class="bar-label-right">
-                            <span class="info">12 items / 4 remaining</span>
-                        </div>
-                    </div>
-                    <div class="bar-level-1" style="width: 100%">
-                        <div class="bar-level-2" style="width: 30%">
-                            <div class="bar-level-3" style="width: 10%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 border-top pt-3">
-                    <div class="element-actions d-none d-sm-block">
-                        <form class="form-inline justify-content-sm-end">
-                            <select class="form-control form-control-sm form-control-faded">
-                                <option selected>
-                                    Last 30 days
-                                </option>
-                                <option>
-                                    This Week
-                                </option>
-                                <option>
-                                    This Month
-                                </option>
-                                <option>
-                                    Today
-                                </option>
-                            </select>
-                        </form>
-                    </div>
-                    <h6 class="element-box-header">
-                        Inventory History
-                    </h6>
-                    <div class="el-chart-w">
-                        <canvas data-chart-data="13,28,19,24,43,49,40,35,42,46,38,32,45" height="50"
-                                id="liteLineChartV3" width="300"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--END - Questions per product                  -->
-    </div>
 </div>
+@section Scripts{
+    <script>
+        // -----------------
+    // init donut chart if element exists
+    // -----------------
+    let chartData = [];
+    chartData.push(@Model.NumberOfBooks);
+    chartData.push(@Model.NumberOfUsers);
+    chartData.push(@Model.NumberCategories);
+    if ($("#booksChart").length) {
+      var donutChart = $("#booksChart");
+
+      // donut chart data
+      var data = {
+        labels: ["Books", "Users", "Category"],
+        datasets: [{
+          data: chartData,
+          backgroundColor: ["#5797fc", "#7e6fff", "#4ecc48"],
+          hoverBackgroundColor: ["#5797fc", "#7e6fff", "#4ecc48"],
+          borderWidth: 0
+        }]
+      };
+
+      // -----------------
+      // init donut chart
+      // -----------------
+      new Chart(donutChart, {
+        type: 'doughnut',
+        data: data,
+        options: {
+          legend: {
+            display: false
+          },
+          animation: {
+            animateScale: true
+          },
+          cutoutPercentage: 80
+        }
+      });
+    }
+    </script>
+}
