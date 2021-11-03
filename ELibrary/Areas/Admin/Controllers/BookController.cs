@@ -128,7 +128,21 @@ namespace ELibrary.Areas.Admin.Controllers
             }
         }
 
-        
+        [Route("book/delete/{id}")]
+        public async Task<IActionResult> DeleteBook(int Id)
+        {
+            try
+            {
+                var book = _repositoryService.BookService.GetById(Id);
+                if (book == null) return Json(new { error = true, message = "book Not Found" });
+                await _repositoryService.BookService.Delete(book);
+                return Json(new { error = false, message = "Success" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, message = ex.Message });
+            }
+        }
 
     }
 }

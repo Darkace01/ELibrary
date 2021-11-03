@@ -94,7 +94,7 @@ namespace ELibrary.Areas.Admin.Controllers
             try
             {
                 var category = _repositoryService.CategoryService.Get(Id);
-                if (category == null) return Json(new { error = true, message = "Review Not Found" });
+                if (category == null) return Json(new { error = true, message = "Category Not Found" });
                 await _repositoryService.CategoryService.Delete(category);
                 return Json(new { error = false, message = "Success" });
             }

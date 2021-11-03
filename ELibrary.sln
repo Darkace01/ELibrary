@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELibrary.Utility", "ELibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELibrary", "ELibrary\ELibrary.csproj", "{AEEB0B5F-5A69-47FD-8D96-024CA0C345F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELibrary.ViewModel", "ELibrary.ViewModel\ELibrary.ViewModel.csproj", "{C4960633-6944-4141-AFED-6B2989EE518B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELibrary.ViewModel", "ELibrary.ViewModel\ELibrary.ViewModel.csproj", "{C4960633-6944-4141-AFED-6B2989EE518B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{D7FD97CC-F194-4559-9D2A-B04AE52964D0}"
 EndProject

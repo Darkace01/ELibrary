@@ -71,5 +71,11 @@ namespace ELibrary.Service.Implementation
 
             await Update(book);
         }
+
+        public async Task Delete(Book book)
+        {
+            _uow.BookRepo.Remove(book);
+            await _uow.Save();
+        }
     }
 }

@@ -4,8 +4,16 @@
 <div class="login-block">
     @if (SignInManager.IsSignedIn(User))
     {
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-        <a asp-area="Identity" class="text-dark" asp-page="/Account/Logout">Log Out</a>
+        if (User.IsInRole(AppConstant.AdminRole))
+        {
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a asp-area="Identity" class="text-dark" asp-page="/Account/Logout">Log Out</a>
+        }
+        else
+        {
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a asp-area="Identity" class="text-dark" asp-page="/Account/Logout">Log Out</a>
+        }
     }
     else
     {

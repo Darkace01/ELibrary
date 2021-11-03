@@ -10,6 +10,7 @@ namespace ELibrary.Service.Contract
     public interface IBookService
     {
         Task Add(Book book);
+        Task Delete(Book book);
         IQueryable<Book> GetAllBooks(bool includeRelationship = false);
         IQueryable<Book> GetAllBooksInCategory(int id);
         string GetBookTags(int id);
