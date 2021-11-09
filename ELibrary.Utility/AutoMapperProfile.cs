@@ -23,6 +23,9 @@ namespace ELibrary.Utility
             CreateMap<Category, CategoryViewModel>();
             CreateMap<AddCategoryViewModel, Category>();
             CreateMap<Category, EditCategoryViewModel>().ReverseMap();
+
+            //Application User
+            CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
         }
     }
 }
