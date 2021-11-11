@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ELibrary.ViewModel
 {
@@ -14,7 +9,7 @@ namespace ELibrary.ViewModel
         public bool DefaultCategory { get; set; }
         public bool IsFeatured { get; set; } = false;
     }
-    
+
     public class EditCategoryViewModel
     {
         public int Id { get; set; }
@@ -22,7 +17,7 @@ namespace ELibrary.ViewModel
         public bool DefaultCategory { get; set; }
         public bool IsFeatured { get; set; } = false;
     }
-    
+
     public class AddCategoryViewModel
     {
         [Required]

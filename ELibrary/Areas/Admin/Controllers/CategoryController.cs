@@ -5,7 +5,6 @@ using ELibrary.Utility;
 using ELibrary.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace ELibrary.Areas.Admin.Controllers
 {
@@ -62,7 +61,7 @@ namespace ELibrary.Areas.Admin.Controllers
         public IActionResult EditCategory(int id)
         {
             var model = _repositoryService.CategoryService.Get(id);
-            if(model == null) return RedirectToAction(nameof(Index));
+            if (model == null) return RedirectToAction(nameof(Index));
             var category = _mapper.Map<EditCategoryViewModel>(model);
             return View(category);
         }

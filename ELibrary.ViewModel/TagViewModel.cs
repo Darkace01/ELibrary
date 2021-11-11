@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ELibrary.ViewModel
+﻿namespace ELibrary.ViewModel
 {
     public class TagViewModel
     {
@@ -12,7 +6,7 @@ namespace ELibrary.ViewModel
         public string Name { get; set; }
         public bool IsFeatured { get; set; }
     }
-    
+
     public class AddTagViewModel
     {
         public string Name { get; set; }

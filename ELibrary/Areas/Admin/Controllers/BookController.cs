@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ELibrary.Service.Contract;
-using AutoMapper;
-using ELibrary.ViewModel;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using AutoMapper;
 using ELibrary.Core;
-using Microsoft.AspNetCore.Authorization;
+using ELibrary.Service.Contract;
 using ELibrary.Utility;
+using ELibrary.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ELibrary.Areas.Admin.Controllers
 {
@@ -16,8 +16,8 @@ namespace ELibrary.Areas.Admin.Controllers
     {
         private readonly IRepositoryServiceManager _repositoryService;
         private readonly IMapper _mapper;
-        private string imageContainer = "ebookimage";
-        private string pdfContainer = "ebook";
+        private readonly string imageContainer = "ebookimage";
+        private readonly string pdfContainer = "ebook";
         public BookController(IRepositoryServiceManager repositoryService, IMapper mapper)
         {
             _repositoryService = repositoryService;
@@ -76,12 +76,12 @@ namespace ELibrary.Areas.Admin.Controllers
                 return View(nameof(AddBook), model);
             }
         }
-        
+
         [Route("edit-book/{id}")]
         public IActionResult EditBook(int id)
         {
             var model = _repositoryService.BookService.GetById(id, true);
-            if(model == null)
+            if (model == null)
             {
                 return RedirectToAction(nameof(Index));
             }

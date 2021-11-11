@@ -4,12 +4,7 @@ using ELibrary.Service.Contract;
 using ELibrary.Utility;
 using ELibrary.ViewModel;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Tasks;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ELibrary.Areas.Admin.Controllers
 {

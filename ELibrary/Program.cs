@@ -1,4 +1,3 @@
-using AutoMapper;
 using ELibrary.Core;
 using ELibrary.Data;
 using ELibrary.Data.Contract;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ELibrary.Core
+﻿namespace ELibrary.Core
 {
     /// <summary>
     /// General attributes of all entities in the database

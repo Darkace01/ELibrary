@@ -1,12 +1,7 @@
 ﻿using ELibrary.Core;
 using ELibrary.Data.Contract;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ELibrary.Data.Implementation
 {
@@ -25,9 +20,9 @@ namespace ELibrary.Data.Implementation
         {
             if (entity is Entity)
             {
-                (entity as Entity).DateCreated = DateTime.Now;
-                (entity as Entity).LastModified = DateTime.Now;
-                (entity as Entity).IsDeleted = false;
+                entity.DateCreated = DateTime.Now;
+                entity.LastModified = DateTime.Now;
+                entity.IsDeleted = false;
             }
 
             _dbContext.Set<TEntity>().Add(entity);
@@ -84,7 +79,7 @@ namespace ELibrary.Data.Implementation
 
         public void Update(TEntity entity)
         {
-            (entity as Entity).LastModified = DateTime.Now;
+            entity.LastModified = DateTime.Now;
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
 

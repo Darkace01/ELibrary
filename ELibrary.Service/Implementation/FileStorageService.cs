@@ -7,7 +7,7 @@ namespace ELibrary.Service.Implementation
 {
     public class FileStorageService : IFileStorageService
     {
-        private string connectionString;
+        private readonly string connectionString;
         public FileStorageService(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("AzureStorageConnection");

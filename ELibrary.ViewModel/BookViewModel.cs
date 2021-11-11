@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ELibrary.ViewModel
 {
@@ -22,7 +17,7 @@ namespace ELibrary.ViewModel
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
     }
-    
+
     public class AddBookViewModel
     {
         [Required]
@@ -41,7 +36,7 @@ namespace ELibrary.ViewModel
         [Required]
         public string Description { get; set; }
     }
-    
+
     public class EditBookViewModel
     {
         public int Id { get; set; }

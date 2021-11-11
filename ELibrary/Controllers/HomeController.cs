@@ -3,7 +3,6 @@ using ELibrary.Models;
 using ELibrary.Service.Contract;
 using ELibrary.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace ELibrary.Controllers

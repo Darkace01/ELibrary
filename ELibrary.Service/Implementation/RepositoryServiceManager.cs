@@ -1,6 +1,5 @@
 ﻿using ELibrary.Data.Contract;
 using ELibrary.Service.Contract;
-using System;
 using Microsoft.Extensions.Configuration;
 
 namespace ELibrary.Service.Implementation
@@ -23,54 +22,44 @@ namespace ELibrary.Service.Implementation
 
 
 
-        public ITagService TagService
-        {
-            get
-            {
+        public ITagService TagService {
+            get {
                 if (_tagService == null)
                     _tagService = new TagService(uow);
 
                 return _tagService;
             }
         }
-        
-        public ICategoryService CategoryService
-        {
-            get
-            {
+
+        public ICategoryService CategoryService {
+            get {
                 if (_categoryService == null)
                     _categoryService = new CategoryService(uow);
 
                 return _categoryService;
             }
         }
-        
-        public IBookService BookService
-        {
-            get
-            {
+
+        public IBookService BookService {
+            get {
                 if (_bookService == null)
                     _bookService = new BookService(uow);
 
                 return _bookService;
             }
         }
-        
-        public IFileStorageService FileStorageService
-        {
-            get
-            {
+
+        public IFileStorageService FileStorageService {
+            get {
                 if (_fileStorageService == null)
                     _fileStorageService = new FileStorageService(config);
 
                 return _fileStorageService;
             }
         }
-        
-        public IEmailSender EmailSender
-        {
-            get
-            {
+
+        public IEmailSender EmailSender {
+            get {
                 if (_emailSender == null)
                     _emailSender = new EmailSender(config);
 

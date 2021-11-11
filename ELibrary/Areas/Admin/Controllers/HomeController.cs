@@ -6,7 +6,6 @@ using ELibrary.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace ELibrary.Areas.Admin.Controllers
 {
