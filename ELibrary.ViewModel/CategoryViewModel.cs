@@ -7,6 +7,7 @@ public class CategoryViewModel
     public int Id { get; set; }
     public string Name { get; set; }
     public bool DefaultCategory { get; set; }
+    public int NoOfBooks { get; set; }
     public bool IsFeatured { get; set; } = false;
 }
 

@@ -15,7 +15,8 @@ public class AutoMapperProfile : Profile
         CreateMap<AddBookViewModel, Book>().ReverseMap();
 
         // Category Map
-        CreateMap<Category, CategoryViewModel>();
+        CreateMap<Category, CategoryViewModel>()
+            .ForMember(c => c.NoOfBooks, opt => opt.MapFrom(src => src.Books.Count()));
         CreateMap<AddCategoryViewModel, Category>();
         CreateMap<Category, EditCategoryViewModel>().ReverseMap();
 

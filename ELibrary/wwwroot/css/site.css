@@ -20,3 +20,8 @@ body {
 .main-slide {
     height: 25rem !important;
 }
+
+.book-image{
+    height: 350px;
+    width: 100%;
+}
