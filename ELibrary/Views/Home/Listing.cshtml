@@ -19,39 +19,23 @@
                             <div class="col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                                 <div class="sorting-selection">
                                     <span>Sort By:</span>
-                                    <select class="form-control nice-select sort-select mr-0">
+                                    <select class="form-control nice-select sort-select mr-0" name="orderBy" onchange="orderChange()">
                                         <option value="" selected="selected">Default Sorting</option>
-                                        <option value="">
+                                        <option value="Naz">
                                             Sort
                                             By:Name (A - Z)
                                         </option>
-                                        <option value="">
+                                        <option value="Nza">
                                             Sort
                                             By:Name (Z - A)
                                         </option>
-                                        <option value="">
+                                        <option value="Caz">
                                             Sort
-                                            By:Price (Low &gt; High)
+                                            By:Category (A - Z)
                                         </option>
-                                        <option value="">
+                                        <option value="Cza">
                                             Sort
-                                            By:Price (High &gt; Low)
-                                        </option>
-                                        <option value="">
-                                            Sort
-                                            By:Rating (Highest)
-                                        </option>
-                                        <option value="">
-                                            Sort
-                                            By:Rating (Lowest)
-                                        </option>
-                                        <option value="">
-                                            Sort
-                                            By:Model (A - Z)
-                                        </option>
-                                        <option value="">
-                                            Sort
-                                            By:Model (Z - A)
+                                            By:Category (Z - A)
                                         </option>
                                     </select>
                                 </div>
@@ -235,6 +219,10 @@
                 document.getElementById("pageNumberInput").value = pageNumber;
                 document.getElementById("library-search").submit();
             }
+        }
+
+        function orderChange(){
+            document.getElementById("library-search").submit();
         }
     </script>
 

@@ -44,7 +44,7 @@ public class HomeController : Controller
     }
 
     [Route("library")]
-    public IActionResult Listing(string query, int categoryId, int pagenumber, int pagesize = AppConstant.PageSize)
+    public IActionResult Listing(string query, int categoryId, int pagenumber, string orderBy, int pagesize = AppConstant.PageSize)
     {
         query = string.IsNullOrEmpty(query) ? "" : query.ToLower();
         pagesize = pagesize < 1 ? 1 : pagesize;
@@ -62,8 +62,29 @@ public class HomeController : Controller
             books = books.Where(c => c.CategoryId == categoryId);
         }
 
+
         var pageTotal = Convert.ToInt32(Math.Ceiling((double)books.Count() / pagesize));
         books = books.Skip((pagenumber - 1) * pagesize).Take(pagesize);
+        if (!string.IsNullOrEmpty(orderBy))
+        {
+            switch (orderBy)
+            {
+                case "Naz":
+                    books = books.OrderBy(x => x.Name);
+                    break;
+                case "Nza":
+                    books = books.OrderByDescending(x => x.Name);
+                    break;
+                case "Caz":
+                    books = books.OrderBy(x => x.Category.Name);
+                    break;
+                case "Cza":
+                    books = books.OrderByDescending(x => x.Category.Name);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         var category = _repositoryService.CategoryService.GetAll(true).ToList();
         ListingViewModel model = new();
