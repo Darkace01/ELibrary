@@ -1,7 +1,6 @@
-﻿namespace ELibrary.Data.Contract
+﻿namespace ELibrary.Data.Contract;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task Save();
-    }
+    Task Save();
 }

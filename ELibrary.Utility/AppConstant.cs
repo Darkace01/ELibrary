@@ -1,8 +1,7 @@
-﻿namespace ELibrary.Utility
+﻿namespace ELibrary.Utility;
+
+public class AppConstant
 {
-    public class AppConstant
-    {
-        public const string AdminRole = "Admin";
-        public const string PublicUserRole = "User";
-    }
+    public const string AdminRole = "Admin";
+    public const string PublicUserRole = "User";
 }

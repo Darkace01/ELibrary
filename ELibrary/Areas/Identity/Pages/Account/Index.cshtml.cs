@@ -6,43 +6,42 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ELibrary.Areas.Identity.Pages.Account
+namespace ELibrary.Areas.Identity.Pages.Account;
+
+[Authorize]
+public class IndexModel : PageModel
 {
-    [Authorize]
-    public class IndexModel : PageModel
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IMapper _mapper;
+
+    public IndexModel(UserManager<ApplicationUser> userManager, IMapper mapper)
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
+        _userManager = userManager;
+        _mapper = mapper;
+    }
 
-        public IndexModel(UserManager<ApplicationUser> userManager, IMapper mapper)
+    [BindProperty]
+    public ApplicationUserViewModel Input { get; set; }
+
+    public async Task OnGetAsync()
+    {
+        var model = await _userManager.GetUserAsync(User);
+        Input = _mapper.Map<ApplicationUserViewModel>(model);
+    }
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        try
         {
-            _userManager = userManager;
-            _mapper = mapper;
+            var user = await _userManager.GetUserAsync(User);
+            user.FullName = Input.FullName;
+            await _userManager.UpdateAsync(user);
+            return RedirectToPage("Index");
         }
-
-        [BindProperty]
-        public ApplicationUserViewModel Input { get; set; }
-
-        public async Task OnGetAsync()
+        catch (Exception ex)
         {
-            var model = await _userManager.GetUserAsync(User);
-            Input = _mapper.Map<ApplicationUserViewModel>(model);
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            try
-            {
-                var user = await _userManager.GetUserAsync(User);
-                user.FullName = Input.FullName;
-                await _userManager.UpdateAsync(user);
-                return RedirectToPage("Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return Page();
-            }
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return Page();
         }
     }
 }

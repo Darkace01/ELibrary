@@ -1,25 +1,24 @@
-﻿namespace ELibrary.Core
+﻿namespace ELibrary.Core;
+
+public class Category : Entity
 {
-    public class Category : Entity
-    {
-        /// <summary>
-        /// Name of category
-        /// </summary>
-        public string Name { get; set; }
+    /// <summary>
+    /// Name of category
+    /// </summary>
+    public string Name { get; set; }
 
-        /// <summary>
-        /// Specifies if the category is a default category
-        /// </summary>
-        public bool DefaultCategory { get; set; }
+    /// <summary>
+    /// Specifies if the category is a default category
+    /// </summary>
+    public bool DefaultCategory { get; set; }
 
-        /// <summary>
-        /// Specifies if the category is featured
-        /// </summary>
-        public bool IsFeatured { get; set; } = false;
+    /// <summary>
+    /// Specifies if the category is featured
+    /// </summary>
+    public bool IsFeatured { get; set; } = false;
 
-        /// <summary>
-        /// Associated books with the category
-        /// </summary>
-        public IEnumerable<Book> Books { get; set; }
-    }
+    /// <summary>
+    /// Associated books with the category
+    /// </summary>
+    public IEnumerable<Book> Books { get; set; }
 }

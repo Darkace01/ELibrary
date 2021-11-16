@@ -1,8 +1,7 @@
 ﻿using ELibrary.Core;
 
-namespace ELibrary.Data.Contract
+namespace ELibrary.Data.Contract;
+
+public interface IBookRepo : ICoreRepo<Book>
 {
-    public interface IBookRepo : ICoreRepo<Book>
-    {
-    }
 }

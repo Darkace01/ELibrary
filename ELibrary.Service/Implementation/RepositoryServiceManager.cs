@@ -2,69 +2,68 @@
 using ELibrary.Service.Contract;
 using Microsoft.Extensions.Configuration;
 
-namespace ELibrary.Service.Implementation
+namespace ELibrary.Service.Implementation;
+
+public class RepositoryServiceManager : IRepositoryServiceManager
 {
-    public class RepositoryServiceManager : IRepositoryServiceManager
+    private readonly IUnitOfWork uow;
+    private ITagService _tagService;
+    private ICategoryService _categoryService;
+    private IBookService _bookService;
+    private IFileStorageService _fileStorageService;
+    private IEmailSender _emailSender;
+    private readonly IConfiguration config;
+
+    public RepositoryServiceManager(IUnitOfWork uow, IConfiguration config)
     {
-        private readonly IUnitOfWork uow;
-        private ITagService _tagService;
-        private ICategoryService _categoryService;
-        private IBookService _bookService;
-        private IFileStorageService _fileStorageService;
-        private IEmailSender _emailSender;
-        private readonly IConfiguration config;
+        this.uow = uow;
+        this.config = config;
+    }
 
-        public RepositoryServiceManager(IUnitOfWork uow, IConfiguration config)
-        {
-            this.uow = uow;
-            this.config = config;
+
+
+    public ITagService TagService {
+        get {
+            if (_tagService == null)
+                _tagService = new TagService(uow);
+
+            return _tagService;
         }
+    }
 
+    public ICategoryService CategoryService {
+        get {
+            if (_categoryService == null)
+                _categoryService = new CategoryService(uow);
 
-
-        public ITagService TagService {
-            get {
-                if (_tagService == null)
-                    _tagService = new TagService(uow);
-
-                return _tagService;
-            }
+            return _categoryService;
         }
+    }
 
-        public ICategoryService CategoryService {
-            get {
-                if (_categoryService == null)
-                    _categoryService = new CategoryService(uow);
+    public IBookService BookService {
+        get {
+            if (_bookService == null)
+                _bookService = new BookService(uow);
 
-                return _categoryService;
-            }
+            return _bookService;
         }
+    }
 
-        public IBookService BookService {
-            get {
-                if (_bookService == null)
-                    _bookService = new BookService(uow);
+    public IFileStorageService FileStorageService {
+        get {
+            if (_fileStorageService == null)
+                _fileStorageService = new FileStorageService(config);
 
-                return _bookService;
-            }
+            return _fileStorageService;
         }
+    }
 
-        public IFileStorageService FileStorageService {
-            get {
-                if (_fileStorageService == null)
-                    _fileStorageService = new FileStorageService(config);
+    public IEmailSender EmailSender {
+        get {
+            if (_emailSender == null)
+                _emailSender = new EmailSender(config);
 
-                return _fileStorageService;
-            }
-        }
-
-        public IEmailSender EmailSender {
-            get {
-                if (_emailSender == null)
-                    _emailSender = new EmailSender(config);
-
-                return _emailSender;
-            }
+            return _emailSender;
         }
     }
 }

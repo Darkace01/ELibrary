@@ -2,25 +2,24 @@
 using ELibrary.Core;
 using ELibrary.ViewModel;
 
-namespace ELibrary.Utility
+namespace ELibrary.Utility;
+
+public class AutoMapperProfile : Profile
 {
-    public class AutoMapperProfile : Profile
+    public AutoMapperProfile()
     {
-        public AutoMapperProfile()
-        {
-            // From Model => To View Model
-            // Book Map
-            CreateMap<Book, BookViewModel>().ReverseMap();
-            CreateMap<Book, EditBookViewModel>().ReverseMap();
-            CreateMap<AddBookViewModel, Book>().ReverseMap();
+        // From Model => To View Model
+        // Book Map
+        CreateMap<Book, BookViewModel>().ReverseMap();
+        CreateMap<Book, EditBookViewModel>().ReverseMap();
+        CreateMap<AddBookViewModel, Book>().ReverseMap();
 
-            // Category Map
-            CreateMap<Category, CategoryViewModel>();
-            CreateMap<AddCategoryViewModel, Category>();
-            CreateMap<Category, EditCategoryViewModel>().ReverseMap();
+        // Category Map
+        CreateMap<Category, CategoryViewModel>();
+        CreateMap<AddCategoryViewModel, Category>();
+        CreateMap<Category, EditCategoryViewModel>().ReverseMap();
 
-            //Application User
-            CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
-        }
+        //Application User
+        CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
     }
 }

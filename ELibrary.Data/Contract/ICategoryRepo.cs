@@ -1,8 +1,7 @@
 ﻿using ELibrary.Core;
 
-namespace ELibrary.Data.Contract
+namespace ELibrary.Data.Contract;
+
+public interface ICategoryRepo : ICoreRepo<Category>
 {
-    public interface ICategoryRepo : ICoreRepo<Category>
-    {
-    }
 }

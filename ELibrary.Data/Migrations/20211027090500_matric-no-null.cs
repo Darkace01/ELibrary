@@ -2,32 +2,31 @@
 
 #nullable disable
 
-namespace ELibrary.Data.Migrations
-{
-    public partial class matricnonull : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AlterColumn<string>(
-                name: "MatricNo",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-        }
+namespace ELibrary.Data.Migrations;
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AlterColumn<string>(
-                name: "MatricNo",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-        }
+public partial class matricnonull : Migration
+{
+    protected override void Up(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.AlterColumn<string>(
+            name: "MatricNo",
+            table: "AspNetUsers",
+            type: "nvarchar(max)",
+            nullable: true,
+            oldClrType: typeof(string),
+            oldType: "nvarchar(max)");
+    }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.AlterColumn<string>(
+            name: "MatricNo",
+            table: "AspNetUsers",
+            type: "nvarchar(max)",
+            nullable: false,
+            defaultValue: "",
+            oldClrType: typeof(string),
+            oldType: "nvarchar(max)",
+            oldNullable: true);
     }
 }

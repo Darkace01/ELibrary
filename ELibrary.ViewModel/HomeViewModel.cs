@@ -1,7 +1,6 @@
-﻿namespace ELibrary.ViewModel
+﻿namespace ELibrary.ViewModel;
+
+public class HomeViewModel
 {
-    public class HomeViewModel
-    {
-        public List<BookViewModel> books { get; set; }
-    }
+    public List<BookViewModel> books { get; set; }
 }
