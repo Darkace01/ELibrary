@@ -1,0 +1,15 @@
+﻿@model List<CategoryViewModel>
+<nav class="category-nav   ">
+    <div>
+        <a href="javascript:void(0)" class="category-trigger">
+            <i class="fa fa-bars"></i>Browse
+            categories
+        </a>
+        <ul class="category-menu">
+            @foreach (var category in Model)
+            {
+                <li class="cat-item "><a asp-action="Listing" asp-route-categoryId="@category.Id">@category.Name</a></li>
+            }
+        </ul>
+    </div>
+</nav>
