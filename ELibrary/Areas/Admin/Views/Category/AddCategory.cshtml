@@ -9,31 +9,131 @@
         Manage Category
     </h6>
     <div class="element-box">
-        <form method="post" asp-action="SaveCategory">
+        <form method="post" asp-action="SaveCategory" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="DefaultCategory" /> @Html.DisplayNameFor(model => model.DefaultCategory)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsFeatured" /> @Html.DisplayNameFor(model => model.IsFeatured)
-                </label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsFeatured" /> @Html.DisplayNameFor(model => model.IsFeatured)
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="DefaultCategory" /> @Html.DisplayNameFor(model => model.DefaultCategory)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="https://source.unsplash.com/random/100x100/?category" />
+                        <input asp-for="ImageFile" class="form-control" accept="image/x-png,image/jpg,image/jpeg" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        <p class="text-danger mb-0" id="imgFileSizeError"></p>
+                        <p class="text-danger mb-0" id="imgFileFormatError"></p>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-   </div>
+    </div>
 </div>
 
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    var imgFileSizeError = document.getElementById("imgFileSizeError");
+    var imgFile = document.getElementById("ImageFile");
+    var imgFileFormatError = document.getElementById("imgFileFormatError");
+
+
+    $(document).ready(function () {
+        $("#ImageFile").change(function () {
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        })
+    })
+
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+                $("#targetImg").attr('src', _file.target.result);
+                $("#imgPreview").show();
+            }
+        }
+    }
+
+
+    $(document).ready(function () {
+        $('#ImageFile').bind('change', function () {
+            var exten = imgFile.value.split('.').pop();
+            exten = exten.toLowerCase();
+            if (!(exten == "png" || exten == "jpg" || exten == "jpeg")) {
+                imgFileFormatError.textContent = "Invalid format.";
+                //alertify.warning("Invalid format");
+
+            } else {
+                imgFileFormatError.textContent = "";
+            }
+
+            // check if the file is larger than 4mb
+            if (this.files[0].size > (10 * 1000 * 1024)) {
+                imgFileSizeError.textContent = "File too large. File should be less than 10mb";
+                //alertify.warning("File too large. File should be less than 4mb");
+            }
+            else {
+                // passed.
+                imgFileSizeError.textContent = "";
+            }
+        });
+    })
+
+
+    function validate() {
+        //if (imgFile.files[0] == null)
+        //    return true;
+
+        if (imgFile.files[0].size > (10 * 1000 * 1024)) {
+
+            imgFileSizeError.textContent = "File too large. File should be less than 10mb";
+            //file too large
+            imgFile.focus();
+
+            return false;
+        }
+        var exten = imgFile.value.split('.').pop();
+        exten = exten.toLowerCase();
+        if (!(exten == "png" || exten == "jpg" || exten == "jpeg")) {
+
+            imgFileFormatError.textContent = "Invalid format.";
+            //invalid format
+            imgFile.focus();
+
+            return false;
+
+        }
+
+    }
+</script>
 }

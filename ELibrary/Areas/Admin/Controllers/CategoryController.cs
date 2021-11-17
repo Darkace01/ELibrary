@@ -15,6 +15,7 @@ public class CategoryController : Controller
 {
     private readonly IRepositoryServiceManager _repositoryService;
     private readonly IMapper _mapper;
+    private readonly string imageContainer = "category";
 
     public CategoryController(IMapper mapper, IRepositoryServiceManager repositoryService)
     {
@@ -36,7 +37,7 @@ public class CategoryController : Controller
         return View();
     }
 
-    [HttpPost("save-category")]
+    [HttpPost("add-category")]
     public async Task<IActionResult> SaveCategory(AddCategoryViewModel model)
     {
         try
@@ -47,6 +48,10 @@ public class CategoryController : Controller
                 return View(nameof(AddCategory), model);
             }
             var category = _mapper.Map<Category>(model);
+            if (model.ImageFile != null)
+            {
+                category.ImageUrl = await _repositoryService.FileStorageService.SaveFile(imageContainer, model.ImageFile);
+            }
             await _repositoryService.CategoryService.Add(category);
             return RedirectToAction(nameof(Index));
         }
@@ -63,10 +68,11 @@ public class CategoryController : Controller
         var model = _repositoryService.CategoryService.Get(id);
         if (model == null) return RedirectToAction(nameof(Index));
         var category = _mapper.Map<EditCategoryViewModel>(model);
+        category.PreviousImageUrl = model.ImageUrl;
         return View(category);
     }
 
-    [HttpPost("update-category")]
+    [HttpPost("edit-category")]
     public async Task<IActionResult> CategoryUpdate(EditCategoryViewModel model)
     {
         try
@@ -77,6 +83,9 @@ public class CategoryController : Controller
                 return View(nameof(EditCategory), model);
             }
             var category = _mapper.Map<Category>(model);
+            category.ImageUrl = model.ImageFile != null
+                ? await _repositoryService.FileStorageService.EditFile(imageContainer, model.ImageFile, model.PreviousImageUrl)
+                : model.PreviousImageUrl;
             await _repositoryService.CategoryService.Update(category);
             return RedirectToAction(nameof(Index));
         }

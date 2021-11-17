@@ -18,6 +18,11 @@ public class Category : Entity
     public bool IsFeatured { get; set; } = false;
 
     /// <summary>
+    /// Category Image Url
+    /// </summary>
+    public string ImageUrl { get; set; }
+
+    /// <summary>
     /// Associated books with the category
     /// </summary>
     public IEnumerable<Book> Books { get; set; }

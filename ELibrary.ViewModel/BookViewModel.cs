@@ -27,9 +27,9 @@ public class AddBookViewModel
     [Display(Name = "Category")]
     public int? CategoryId { get; set; }
     public string Tags { get; set; }
-    public string PdfUrl { get; set; }
+    public string? PdfUrl { get; set; }
     public IFormFile ImageFile { get; set; }
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
     public IFormFile PdfFile { get; set; }
     [Required]
     public string Author { get; set; }
@@ -47,9 +47,9 @@ public class EditBookViewModel
     [Display(Name = "Category")]
     public int? CategoryId { get; set; }
     public string Tags { get; set; }
-    public string PdfUrl { get; set; }
+    public string? PdfUrl { get; set; }
     public IFormFile PdfFile { get; set; }
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
     public IFormFile ImageFile { get; set; }
     [Required]
     public string Author { get; set; }
