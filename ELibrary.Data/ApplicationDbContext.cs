@@ -13,10 +13,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<UserBook>()
+            .HasKey(x => new { x.BookId, x.UserId });
         base.OnModelCreating(builder);
     }
 
     public DbSet<Book> Books { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<UserBook> User { get; set; }
 }

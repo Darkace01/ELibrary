@@ -8,6 +8,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     public TagRepo TagRepo { get; set; }
     public CategoryRepo CategoryRepo { get; set; }
     public BookRepo BookRepo { get; set; }
+    public UserBookRepo UserBookRepo { get; set; }
 
     public UnitOfWork(ApplicationDbContext context)
     {
@@ -15,6 +16,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         this.TagRepo = new TagRepo(this._context);
         this.CategoryRepo = new CategoryRepo(this._context);
         this.BookRepo = new BookRepo(this._context);
+        this.UserBookRepo = new UserBookRepo(this._context);
     }
     public async Task Save()
     {
