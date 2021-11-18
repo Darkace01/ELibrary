@@ -74,7 +74,7 @@ public class BookController : Controller
 
     [Route("edit-book/{id}")]
     public IActionResult EditBook(int id)
-   
+
     {
         var model = _repositoryService.BookService.GetById(id, true);
         if (model == null)
