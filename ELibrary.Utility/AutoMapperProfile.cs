@@ -9,6 +9,8 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
         // From Model => To View Model
+        // From View Model => To Model
+
         // Book Map
         CreateMap<Book, BookViewModel>().ReverseMap();
         CreateMap<Book, EditBookViewModel>().ReverseMap();
@@ -20,7 +22,11 @@ public class AutoMapperProfile : Profile
         CreateMap<AddCategoryViewModel, Category>();
         CreateMap<Category, EditCategoryViewModel>().ReverseMap();
 
-        //Application User
+        //Application User Map
         CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
+
+        //User Books Map
+        CreateMap<UserBook, UserBookViewModel>().ReverseMap();
+
     }
 }

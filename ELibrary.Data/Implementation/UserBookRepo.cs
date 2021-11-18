@@ -19,6 +19,7 @@ public class UserBookRepo : CoreRepo<UserBook>, IUserBookRepo
     {
         return dbSet.Where(c => c.Id == id && !c.IsDeleted)
                     .Include(c => c.Book)
+                    .ThenInclude(c => c.Category)
                     .Include(c => c.User)
                     .FirstOrDefault();
     }
@@ -27,6 +28,7 @@ public class UserBookRepo : CoreRepo<UserBook>, IUserBookRepo
     {
         return dbSet.Where(c => !c.IsDeleted)
                     .Include(c => c.Book)
+                    .ThenInclude(c => c.Category)
                     .Include(c => c.User);
     }
 
@@ -35,6 +37,7 @@ public class UserBookRepo : CoreRepo<UserBook>, IUserBookRepo
         return dbSet.Where(predicate)
                     .Where(c => !c.IsDeleted)
                     .Include(c => c.Book)
+                    .ThenInclude(c => c.Category)
                     .Include(c => c.User);
     }
 }

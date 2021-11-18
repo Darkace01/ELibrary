@@ -1,133 +1,183 @@
 ﻿@page
-@model ELibrary.Areas.Identity.Pages.Account.IndexModel
+@model IndexModel
 @{
     ViewData["Title"] = "Manage Account";
 }
 
 <div class="page-section inner-page-sec-padding">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<div class="row">
-							<!-- My Account Tab Menu Start -->
-							<div class="col-lg-3 col-12">
-								<div class="myaccount-tab-menu nav" role="tablist">
-									<a href="#dashboad" class="active" data-toggle="tab"><i
-											class="fas fa-tachometer-alt"></i>
-										Dashboard</a>
-									<a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Books</a>
-									<a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i>
-										Account Summary</a>
-									<a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account
-										Details</a>
-									<a asp-area="Identity" asp-page="/Account/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-								</div>
-							</div>
-							<!-- My Account Tab Menu End -->
-							<!-- My Account Tab Content Start -->
-							<div class="col-lg-9 col-12 mt--30 mt-lg--0">
-								<div class="tab-content" id="myaccountContent">
-									<!-- Single Tab Content Start -->
-									<div class="tab-pane fade show active" id="dashboad" role="tabpanel">
-										<div class="myaccount-content">
-											<h3>Dashboard</h3>
-											<div class="welcome mb-20">
-												<p>Hello, <strong>@Model.Input.FullName</strong> (If Not <strong>@Model.Input.FullName
-														!</strong><a asp-area="Identity" asp-page="/Account/Logout" class="logout">
-														Logout</a>)</p>
-											</div>
-											<p class="mb-0">From your account dashboard. you can easily check &amp; view your recent books, manage your your password and account details.</p>
-										</div>
-									</div>
-									<!-- Single Tab Content End -->
-									<!-- Single Tab Content Start -->
-									<div class="tab-pane fade" id="orders" role="tabpanel">
-										<div class="myaccount-content">
-											<h3>Books</h3>
-											<div class="myaccount-table table-responsive text-center">
-												<table class="table table-bordered">
-													<thead class="thead-light">
-														<tr>
-															<th>No</th>
-															<th>Name</th>
-															<th>Date</th>
-															<th>Category</th>
-															<th>Total</th>
-															<th>Action</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>1</td>
-															<td>Mostarizing Oil</td>
-															<td>Aug 22, 2018</td>
-															<td>Pending</td>
-															<td>$45</td>
-															<td>
-																<a href="cart.html" class="btn px-1">View</a>
-																<a href="cart.html" class="btn px-1">Download</a>
-																</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-									<!-- Single Tab Content End -->
-									
-									<!-- Single Tab Content Start -->
-									<div class="tab-pane fade" id="address-edit" role="tabpanel">
-										<div class="myaccount-content">
-											<h3>User Details</h3>
-											<address>
-												<p><strong>@Model.Input.FullName</strong></p>
-												<p>@Model.Input.Email <br>
-													@Model.Input.MatricNo</p>
-											</address>
-											<a href="#account-info" data-toggle="tab" class="btn btn--primary"><i class="fa fa-edit"></i>Edit
-												Details</a>
-										</div>
-									</div>
-									<!-- Single Tab Content End -->
-									<!-- Single Tab Content Start -->
-									<div class="tab-pane fade" id="account-info" role="tabpanel">
-										<div class="myaccount-content">
-											<h3>Account Details</h3>
-											<div class="account-details-form">
-												<form id="accountForm" method="post">
-													<div class="row">
-														<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-														<div class="col-lg-6 col-12  mb--30">
-															<input placeholder="Email Address" type="text" asp-for="Input.Email" disabled value="@Model.Input.Email">
-															<span asp-validation-for="Input.Email" class="text-danger"></span>
-														</div>
-														<div class="col-lg-6 col-12  mb--30">
-															<input placeholder="Matric No" type="text" asp-for="Input.MatricNo" disabled value="@Model.Input.MatricNo">
-															<span asp-validation-for="Input.MatricNo" class="text-danger"></span>
-														</div>
-														<div class="col-12  mb--30">
-															<input placeholder="Full Name" asp-for="Input.FullName"
-																type="text">
-																<span asp-validation-for="Input.FullName" class="text-danger"></span>
-														</div>
-														
-														<div class="col-12">
-															<button type="submit" class="btn btn--primary">Save Changes</button>
-														</div>
-													</div>
-												</form>
-											</div>
-										</div>
-										
-									<!-- Single Tab Content End -->
-								</div>
-							</div>
-							<!-- My Account Tab Content End -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		@section Scripts {
-<partial name="_ValidationScriptsPartial" />
-}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <!-- My Account Tab Menu Start -->
+                    <div class="col-lg-3 col-12">
+                        <div class="myaccount-tab-menu nav" role="tablist">
+                            <a href="#dashboad" class="active" data-toggle="tab">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                            <a href="#books" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Books</a>
+                            <a href="#address-edit" data-toggle="tab">
+                                <i class="fa fa-map-marker"></i>
+                                Account Summary
+                            </a>
+                            <a href="#account-info" data-toggle="tab">
+                                <i class="fa fa-user"></i> Account
+                                Details
+                            </a>
+                            <a href="#view-pdf" data-toggle="tab" id="pdf-button" hidden>
+                                <i class="fa fa-file"></i> View PDF
+                            </a>
+                            <a asp-area="Identity" asp-page="/Account/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <!-- My Account Tab Menu End -->
+                    <!-- My Account Tab Content Start -->
+                    <div class="col-lg-9 col-12 mt--30 mt-lg--0">
+                        <div class="tab-content" id="myaccountContent">
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <h3>Dashboard</h3>
+                                    <div class="welcome mb-20">
+                                        <p>
+                                            Hello, <strong>@Model.Input.FullName</strong> (If Not <strong>
+                                                @Model.Input.FullName
+                                                !
+                                            </strong><a asp-area="Identity" asp-page="/Account/Logout" class="logout">
+                                                Logout
+                                            </a>)
+                                        </p>
+                                    </div>
+                                    <p class="mb-0">From your account dashboard. you can easily check &amp; view your recent books, manage your your password and account details.</p>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="books" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <h3>Books</h3>
+                                    <div class="myaccount-table table-responsive text-center">
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Name</th>
+                                                    <th>Author</th>
+                                                    <th>Category</th>
+                                                    <th>Date Added</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    int i = 0;
+                                                };
+                                                @foreach (var userBook in Model.UserBooks)
+                                                {
+                                                    i++;
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>@userBook.Book.Name</td>
+                                                        <td>@userBook.Book.Author</td>
+                                                        <td>@userBook.Book.Category.Name</td>
+                                                        <td>@userBook.DateCreated.ToString("dd-MMM-yyyy")</td>
+                                                        <td>
+                                                            <a href="javascript:;" onclick="viewPDF('@userBook.Book.PdfUrl')" class="btn px-1">View</a>
+                                                            <a href="javascript:;" class="btn px-1" onclick="downloadURI('@userBook.Book.PdfUrl','@userBook.Book.Name')">Download</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="address-edit" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <h3>User Details</h3>
+                                    <address>
+                                        <p><strong>@Model.Input.FullName</strong></p>
+                                        <p>
+                                            @Model.Input.Email <br>
+                                            @Model.Input.MatricNo
+                                        </p>
+                                    </address>
+                                    <a href="#account-info" data-toggle="tab" class="btn btn--primary">
+                                        <i class="fa fa-edit"></i>Edit
+                                        Details
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="account-info" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <h3>Account Details</h3>
+                                    <div class="account-details-form">
+                                        <form id="accountForm" method="post">
+                                            <div class="row">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <div class="col-lg-6 col-12  mb--30">
+                                                    <input placeholder="Email Address" type="text" asp-for="Input.Email" disabled value="@Model.Input.Email">
+                                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-lg-6 col-12  mb--30">
+                                                    <input placeholder="Matric No" type="text" asp-for="Input.MatricNo" disabled value="@Model.Input.MatricNo">
+                                                    <span asp-validation-for="Input.MatricNo" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-12  mb--30">
+                                                    <input placeholder="Full Name" asp-for="Input.FullName"
+                                                           type="text">
+                                                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn--primary">Save Changes</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Single Tab Content End -->
+                            </div>
+                            <div class="tab-pane fade" id="view-pdf" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <h3>PDF File</h3>
+                                    <div class="account-details-form">
+                                        <iframe id="pdf-viewer" src="https://docs.google.com/gview?url=https://kazeemtimcostorage.blob.core.windows.net/ebook/4d7a1501-8ee3-49d6-bc93-969cb707711e.pdf&embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>
+                                    </div>
+                                </div>
+
+                                <!-- Single Tab Content End -->
+                            </div>
+                        </div>
+                        <!-- My Account Tab Content End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function downloadURI(uri, name){
+                var link = document.createElement("a");
+                link.setAttribute('download', name);
+                link.href = uri;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            }
+
+        function viewPDF(uri){
+            let _url = "https://docs.google.com/gview?url="+uri+"&embedded=true";
+            $("#pdf-viewer").attr('src',_url);
+            $("#pdf-button").click();
+        }
+    </script>
+    }

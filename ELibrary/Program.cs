@@ -28,6 +28,11 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+});
+
 //Service Manager DI
 builder.Services.AddScoped<IRepositoryServiceManager, RepositoryServiceManager>();
 
