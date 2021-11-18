@@ -10,7 +10,7 @@
         Manage Book
     </h6>
     <div class="element-box">
-        <form asp-action="AddBook" enctype="multipart/form-data">
+        <form asp-action="AddBook" id="add-book" enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-6">
@@ -90,8 +90,11 @@
     $(document).ready(function () {
             $('#tag-selection').select2({
                 tags: true,
-                tokenSeparators: [','],
-                maximumSelectionLength: 5
+                tokenSeparators: [',',''],
+                maximumSelectionLength: 5,
+                formatSelectionTooBig: function (limit) {
+                    return 'Maximum tags selected';
+                }
             })
         });
 

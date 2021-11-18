@@ -45,26 +45,21 @@ public class BookController : Controller
     {
         try
         {
-            if (!string.IsNullOrEmpty(model.Tags))
+            if (model.Tags.Count > 0)
             {
-                model.Tags = model.Tags.ToLower();
-                var listOfTags = model.Tags.Split(',').ToList();
+                var listOfTags = model.Tags;
                 listOfTags = listOfTags.Distinct().ToList();
 
                 var tagsModel = listOfTags.Select(t => new AddTagViewModel() { Name = t, ValidTagName = _repositoryService.TagService.CheckTagName(t) }).ToList();
                 var _tags = tagsModel.Where(t => t.ValidTagName).Select(t => new Tag { Name = t.Name, IsFeatured = true });
-                model.Tags = string.Join(',', tagsModel.Select(t => t.Name));
+                model.TagString = string.Join(',', tagsModel.Select(t => t.Name));
                 await _repositoryService.TagService.AddRange(_tags);
             }
             var book = _mapper.Map<Book>(model);
-            if (model.ImageFile != null)
-            {
-                book.ImageUrl = await _repositoryService.FileStorageService.SaveFile(imageContainer, model.ImageFile);
-            }
-            if (model.PdfFile != null)
-            {
-                book.PdfUrl = await _repositoryService.FileStorageService.SaveFile(pdfContainer, model.PdfFile);
-            }
+            book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
+            book.ImageUrl = model.ImageFile != null ? await _repositoryService.FileStorageService.SaveFile(imageContainer, model.ImageFile) : "";
+            book.PdfUrl = model.PdfFile != null ? await _repositoryService.FileStorageService.SaveFile(pdfContainer, model.PdfFile) : "";
+
             await _repositoryService.BookService.Add(book);
             return RedirectToAction(nameof(Index));
         }
@@ -79,6 +74,7 @@ public class BookController : Controller
 
     [Route("edit-book/{id}")]
     public IActionResult EditBook(int id)
+   
     {
         var model = _repositoryService.BookService.GetById(id, true);
         if (model == null)
@@ -93,23 +89,23 @@ public class BookController : Controller
         return View(book);
     }
 
-    [HttpPost("edit-book")]
-    public async Task<IActionResult> EditBook(EditBookViewModel model)
+    [HttpPost("update-book")]
+    public async Task<IActionResult> UpdateBook(EditBookViewModel model)
     {
         try
         {
-            if (!string.IsNullOrEmpty(model.Tags))
+            if (model.Tags.Count > 0)
             {
-                model.Tags = model.Tags.ToLower();
-                var listOfTags = model.Tags.Split(',').ToList();
+                var listOfTags = model.Tags;
                 listOfTags = listOfTags.Distinct().ToList();
 
                 var tagsModel = listOfTags.Select(t => new AddTagViewModel() { Name = t, ValidTagName = _repositoryService.TagService.CheckTagName(t) }).ToList();
                 var _tags = tagsModel.Where(t => t.ValidTagName).Select(t => new Tag { Name = t.Name, IsFeatured = true });
-                model.Tags = string.Join(',', tagsModel.Select(t => t.Name));
+                model.TagString = string.Join(',', tagsModel.Select(t => t.Name));
                 await _repositoryService.TagService.AddRange(_tags);
             }
             var book = _mapper.Map<Book>(model);
+            book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
             book.ImageUrl = model.ImageFile != null
                 ? await _repositoryService.FileStorageService.EditFile(imageContainer, model.ImageFile, model.PreviousImageUrl)
                 : model.PreviousImageUrl;

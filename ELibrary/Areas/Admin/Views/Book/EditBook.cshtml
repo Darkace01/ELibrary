@@ -10,7 +10,7 @@
         Manage Book
     </h6>
     <div class="element-box">
-        <form asp-action="EditBook" enctype="multipart/form-data">
+        <form asp-action="UpdateBook" enctype="multipart/form-data">
             <input asp-for="Id" hidden />
             <input asp-for="PreviousImageUrl" hidden />
             <input asp-for="PreviousPdfUrl" hidden />
@@ -31,9 +31,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Model.ImageUrl" />
+                        <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Model.ImageUrl" data-val="false"/>
                         <input asp-for="ImageFile" class="form-control" accept="image/x-png,image/jpg,image/jpeg" />
-                        <span asp-validation-for="ImageFile" class="text-danger"></span>
                         <p class="text-danger mb-0" id="imgFileSizeError"></p>
                         <p class="text-danger mb-0" id="imgFileFormatError"></p>
                     </div>
