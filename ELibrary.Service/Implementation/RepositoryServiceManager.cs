@@ -10,6 +10,7 @@ public class RepositoryServiceManager : IRepositoryServiceManager
     private ITagService _tagService;
     private ICategoryService _categoryService;
     private IBookService _bookService;
+    private IUserBookService _userBookService;
     private IFileStorageService _fileStorageService;
     private IEmailSender _emailSender;
     private readonly IConfiguration config;
@@ -46,6 +47,15 @@ public class RepositoryServiceManager : IRepositoryServiceManager
                 _bookService = new BookService(uow);
 
             return _bookService;
+        }
+    }
+    
+    public IUserBookService UserBookService {
+        get {
+            if (_userBookService == null)
+                _userBookService = new UserBookService(uow);
+
+            return _userBookService;
         }
     }
 

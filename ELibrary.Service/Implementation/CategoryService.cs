@@ -81,6 +81,7 @@ public class CategoryService : ICategoryService
         return _uow.CategoryRepo.GetAllInclude().Where(b => b.DefaultCategory).First();
     }
 
+    #region Private Helpers
     private bool ValidateBusinessCategoryDetails(Category category)
     {
         if (category == null)
@@ -102,4 +103,5 @@ public class CategoryService : ICategoryService
 
         return false;
     }
+    #endregion
 }
