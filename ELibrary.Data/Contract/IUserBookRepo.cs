@@ -1,7 +1,4 @@
-﻿using ELibrary.Core;
-using System.Linq.Expressions;
-
-namespace ELibrary.Data.Contract;
+﻿namespace ELibrary.Data.Contract;
 
 public interface IUserBookRepo : ICoreRepo<UserBook>
 {

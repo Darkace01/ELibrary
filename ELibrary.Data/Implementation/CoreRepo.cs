@@ -1,7 +1,4 @@
-﻿using ELibrary.Core;
-using ELibrary.Data.Contract;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+﻿using ELibrary.Data.Contract;
 
 namespace ELibrary.Data.Implementation;
 

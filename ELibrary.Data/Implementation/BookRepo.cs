@@ -1,8 +1,4 @@
-﻿using ELibrary.Core;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
-namespace ELibrary.Data.Implementation;
+﻿namespace ELibrary.Data.Implementation;
 
 public class BookRepo : CoreRepo<Book>
 {

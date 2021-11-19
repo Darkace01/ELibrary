@@ -1,6 +1,4 @@
-﻿using ELibrary.Core;
-using ELibrary.Data.Contract;
-using Microsoft.EntityFrameworkCore;
+﻿using ELibrary.Data.Contract;
 
 namespace ELibrary.Data.Implementation;
 
