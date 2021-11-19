@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using ELibrary.Core;
-using ELibrary.Service.Contract;
-using ELibrary.Utility;
-using ELibrary.ViewModel;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ELibrary.Areas.Admin.Controllers;
 

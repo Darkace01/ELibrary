@@ -51,6 +51,6 @@ public class UserBookService : IUserBookService
             return true;
 
         return false;
-    } 
+    }
     #endregion
 }

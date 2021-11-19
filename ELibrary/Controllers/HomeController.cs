@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using ELibrary.Models;
-using ELibrary.Service.Contract;
-using ELibrary.Utility;
-using ELibrary.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace ELibrary.Controllers;
 

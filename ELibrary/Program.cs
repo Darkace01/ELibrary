@@ -1,11 +1,7 @@
-using ELibrary.Core;
 using ELibrary.Data;
 using ELibrary.Data.Contract;
 using ELibrary.Data.Implementation;
-using ELibrary.Service.Contract;
 using ELibrary.Service.Implementation;
-using ELibrary.Utility;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

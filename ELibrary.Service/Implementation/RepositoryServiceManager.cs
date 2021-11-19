@@ -49,7 +49,7 @@ public class RepositoryServiceManager : IRepositoryServiceManager
             return _bookService;
         }
     }
-    
+
     public IUserBookService UserBookService {
         get {
             if (_userBookService == null)

@@ -1,0 +1,11 @@
+﻿global using AutoMapper;
+global using ELibrary.Core;
+global using ELibrary.EmailHandler;
+global using ELibrary.Models;
+global using ELibrary.Service.Contract;
+global using ELibrary.Utility;
+global using ELibrary.ViewModel;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.RazorPages;

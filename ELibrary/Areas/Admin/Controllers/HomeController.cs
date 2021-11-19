@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using ELibrary.Core;
-using ELibrary.Service.Contract;
-using ELibrary.Utility;
-using ELibrary.ViewModel;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-
-namespace ELibrary.Areas.Admin.Controllers;
+﻿namespace ELibrary.Areas.Admin.Controllers;
 
 [Area("admin")]
 [Route("admin")]

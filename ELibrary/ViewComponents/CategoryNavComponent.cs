@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using ELibrary.Service.Contract;
-using ELibrary.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-
-namespace ELibrary.ViewComponents;
+﻿namespace ELibrary.ViewComponents;
 
 [ViewComponent(Name = "CategoryNav")]
 public class CategoryNavComponent : ViewComponent
