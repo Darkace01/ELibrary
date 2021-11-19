@@ -1,6 +1,4 @@
-﻿using ELibrary.Core;
-
-namespace ELibrary.Service.Contract;
+﻿namespace ELibrary.Service.Contract;
 
 public interface IBookService
 {

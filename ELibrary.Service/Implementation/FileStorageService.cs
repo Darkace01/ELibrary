@@ -1,7 +1,5 @@
 ﻿using Azure.Storage.Blobs;
-using ELibrary.Service.Contract;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 
 namespace ELibrary.Service.Implementation;
 

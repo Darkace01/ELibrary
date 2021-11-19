@@ -1,8 +1,4 @@
-﻿using ELibrary.Data.Contract;
-using ELibrary.Service.Contract;
-using Microsoft.Extensions.Configuration;
-
-namespace ELibrary.Service.Implementation;
+﻿namespace ELibrary.Service.Implementation;
 
 public class RepositoryServiceManager : IRepositoryServiceManager
 {

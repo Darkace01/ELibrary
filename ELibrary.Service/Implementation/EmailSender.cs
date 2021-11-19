@@ -1,9 +1,4 @@
-﻿using ELibrary.Service.Contract;
-using Microsoft.Extensions.Configuration;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-
-namespace ELibrary.Service.Implementation;
+﻿namespace ELibrary.Service.Implementation;
 
 public class EmailSender : IEmailSender
 {

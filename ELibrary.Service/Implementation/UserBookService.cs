@@ -1,9 +1,4 @@
-﻿using ELibrary.Core;
-using ELibrary.Data.Contract;
-using ELibrary.Data.Implementation;
-using ELibrary.Service.Contract;
-
-namespace ELibrary.Service.Implementation;
+﻿namespace ELibrary.Service.Implementation;
 
 public class UserBookService : IUserBookService
 {
