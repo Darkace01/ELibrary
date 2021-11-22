@@ -22,7 +22,7 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
     - name: Restore
-      run: dotnet restore --runtime linux-x64 --no-self-contained
+      run: dotnet restore --runtime linux-x64
     - name: Build
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore --no-self-contained
     - name: Publish
