@@ -24,9 +24,9 @@ jobs:
     - name: Restore
       run: dotnet restore --runtime linux-x64
     - name: Build
-      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore --runtime linux-x64 --no-self-contained
     - name: Publish
-      run: dotnet publish -r linux-x64 "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --runtime linux-x64 --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --runtime linux-x64 --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
