@@ -22,7 +22,7 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
     - name: Restore
-      run: dotnet restore ELibrary.csproj -r linux-x64 "${{ env.WORKING_DIRECTORY }}"
+      run: dotnet restore ELibrary.csproj -r linux-x64 
     - name: Build
       run: dotnet build ELibrary.csproj -r linux-x64 "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Publish
