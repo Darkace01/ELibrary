@@ -16,6 +16,7 @@ public class BookViewModel
     public string Author { get; set; }
     public string Description { get; set; }
     public DateTime DateCreated { get; set; }
+    public bool UserOwnBook { get; set; }
 }
 
 public class AddBookViewModel

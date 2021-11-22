@@ -6,13 +6,15 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IRepositoryServiceManager _repositoryService;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IMapper _mapper;
 
-    public HomeController(ILogger<HomeController> logger, IRepositoryServiceManager repositoryService, IMapper mapper)
+    public HomeController(ILogger<HomeController> logger, IRepositoryServiceManager repositoryService, IMapper mapper, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _repositoryService = repositoryService;
         _mapper = mapper;
+        _userManager = userManager;
     }
 
     public IActionResult Index()
@@ -26,7 +28,7 @@ public class HomeController : Controller
     }
 
     [Route("{id}")]
-    public IActionResult Detail(int id)
+    public async Task<IActionResult> Detail(int id)
     {
         var model = _repositoryService.BookService.GetById(id, true);
         if (model == null)
@@ -34,6 +36,10 @@ public class HomeController : Controller
             return RedirectToAction(nameof(Index));
         }
         var book = _mapper.Map<BookViewModel>(model);
+        var user = await GetCurrentUser();
+        if (user == null) return View(book);
+        var bookExist = _repositoryService.UserBookService.GetAll(false).FirstOrDefault(x => x.UserId == user.Id && x.BookId == book.Id);
+        if (bookExist != null) { book.UserOwnBook = true; };
         return View(book);
     }
 
@@ -90,6 +96,15 @@ public class HomeController : Controller
         return View(model);
     }
 
+    [Authorize]
+    public async Task<IActionResult> AddToCollection(int id)
+    {
+        var user = await GetCurrentUser();
+        if (_repositoryService.UserBookService.GetAll(false).FirstOrDefault(x => x.UserId == user.Id && x.BookId == id) != null) return RedirectToPage("/Account/Index", new { area = "Identity" });
+        await _repositoryService.UserBookService.Add(new UserBook() { BookId = id, UserId = user.Id });
+        return RedirectToPage("/Account/Index", new { area = "Identity" });
+    }
+
     public IActionResult Privacy()
     {
         return View();
@@ -100,4 +115,11 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    #region Private Methods
+    private async Task<ApplicationUser> GetCurrentUser()
+    {
+        return await _userManager.GetUserAsync(User);
+    }
+    #endregion
 }

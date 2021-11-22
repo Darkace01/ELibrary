@@ -53,12 +53,14 @@
     <h2 class="sr-only">Category Gallery Section</h2>
     <div class="container">
         <div class="category-gallery-block">
-            @{var defualtCategory = Model.Categories.FirstOrDefault(x => x.DefaultCategory);}
-                
+            @{
+                var defualtCategory = Model.Categories.FirstOrDefault(x => x.DefaultCategory);
+            }
+
             <a asp-action="Listing" asp-route-categoryId="@defualtCategory.Id" class="single-block hr-large">
                 <img src="@defualtCategory.ImageUrl" alt="@defualtCategory.Name">
             </a>
-                
+
             <div class="single-block inner-block-wrapper">
                 @foreach (var category in Model.Categories.Where(x => !x.DefaultCategory).ToList())
                 {
@@ -109,6 +111,15 @@
                                                 <a asp-action="Detail" asp-route-id="@book.Id" class="single-btn">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
+                                                @if (SignInManager.IsSignedIn(User))
+                                                {
+                                                    if (User.IsInRole(AppConstant.PublicUserRole))
+                                                    {
+                                                        <a asp-action="AddToCollection" asp-route-id="@book.Id" class="single-btn">
+                                                            <i class="fas fa-plus"></i>
+                                                        </a>
+                                                    }
+                                                }
                                             </div>
                                         </div>
                                     </div>

@@ -4,9 +4,9 @@
 }
 @{
     var shortDescription = string.Empty;
-    if(Model.Description.Length > 200)
+    if (Model.Description.Length > 200)
     {
-        shortDescription =  Model.Description.Substring(0, 200) + "..";
+        shortDescription = Model.Description.Substring(0, 200) + "..";
     }
     else
     {
@@ -47,12 +47,21 @@
                     </div>
                     <article class="product-details-article">
                         <h4 class="sr-only">Product Summery</h4>
-                          <p>@shortDescription</p>
-                            
+                        <p>@shortDescription</p>
+
                     </article>
                     <div class="add-to-cart-row">
                         <div class="add-cart-btn">
-                            <a href="" class="btn btn-outlined--primary">Read Book</a>
+                            <a asp-action="AddToCollection" asp-controller="Home" asp-route-id="@Model.Id" class="btn btn-outlined--primary">Read Book</a>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                if (User.IsInRole(AppConstant.PublicUserRole))
+                                {
+                                    <a asp-action="AddToCollection" asp-route-id="@Model.Id" class="single-btn">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                }
+                            }
                         </div>
                     </div>
                 </div>

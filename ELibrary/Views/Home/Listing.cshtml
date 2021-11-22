@@ -15,7 +15,7 @@
                                     Showing @Model.Books.Count of @Model.PageTotal (@Model.PageTotal Pages)
                                 </span>
                             </div>
-                            
+
                             <div class="col-lg-4 col-md-4 col-sm-6 mt--10 mt-md--0 ">
                                 <div class="sorting-selection">
                                     <span>Sort By:</span>
@@ -143,6 +143,15 @@
                                                         <a asp-action="Detail" asp-route-id="@book.Id" class="single-btn">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
+                                                        @if (SignInManager.IsSignedIn(User))
+                                                        {
+                                                            if (User.IsInRole(AppConstant.PublicUserRole))
+                                                            {
+                                                                <a asp-action="AddToCollection" asp-route-id="@book.Id" class="single-btn">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </a>
+                                                            }
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,7 +182,7 @@
                                     {
                                         string activePageClass = i == Model.CurrentPage ? "active" : " ";
                                         int pageNumber = i == Model.CurrentPage ? 0 : i;
-                                        
+
                                         <input id="pageNumberInput" hidden name="pageNumber" />
                                         <li><a href="javascript:;" onclick="changeCompanySearchPage(@pageNumber)" class="@activePageClass single-btn">@i</a></li>
                                     }
@@ -211,19 +220,19 @@
 </main>
 
 @section scripts{
-    <script>
-        function changeCompanySearchPage(pageNumber) {
-            if (pageNumber > 0) {
-                // the if statement ensures an active page is not checked again
-                // page number is set to 0 for an active page
-                document.getElementById("pageNumberInput").value = pageNumber;
-                document.getElementById("library-search").submit();
-            }
-        }
-
-        function orderChange(){
+<script>
+    function changeCompanySearchPage(pageNumber) {
+        if (pageNumber > 0) {
+            // the if statement ensures an active page is not checked again
+            // page number is set to 0 for an active page
+            document.getElementById("pageNumberInput").value = pageNumber;
             document.getElementById("library-search").submit();
         }
-    </script>
+    }
+
+    function orderChange(){
+        document.getElementById("library-search").submit();
+    }
+</script>
 
 }
