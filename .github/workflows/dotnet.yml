@@ -23,7 +23,8 @@ jobs:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
     - name: Restore
       run: dotnet restore
-    
+    - name: Build
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} -r 'linux-x64' --no-restore --self-contained false
     - name: Publish
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --self-contained false --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Deploy to Azure WebApp
