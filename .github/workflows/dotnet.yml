@@ -21,10 +21,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-    - name: Restore
-      run: dotnet restore
-    - name: Build
-      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} -r 'linux-x64' --no-restore --no-self-contained
     - name: Publish
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --framework 'net6.0' -r 'linux-x64' --self-contained false --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Deploy to Azure WebApp
