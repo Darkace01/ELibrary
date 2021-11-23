@@ -51,7 +51,15 @@ public class BookController : Controller
             var book = _mapper.Map<Book>(model);
             book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
             book.ImageUrl = model.ImageFile != null ? await _repositoryService.FileStorageService.SaveFile(imageContainer, model.ImageFile) : "";
-            book.PdfUrl = model.PdfFile != null ? await _repositoryService.FileStorageService.SaveFile(pdfContainer, model.PdfFile) : "";
+            if (CommonHelper.CheckFileFormat(model.PdfFile, ".pdf"))
+            {
+                book.PdfUrl = model.PdfFile == null ? "" : await _repositoryService.FileStorageService.SaveFile(pdfContainer, model.PdfFile);
+            }
+            else
+            {
+                ModelState.AddModelError("", "File is not a pdf");
+                return View(nameof(AddBook), model);
+            }
 
             await _repositoryService.BookService.Add(book);
             return RedirectToAction(nameof(Index));

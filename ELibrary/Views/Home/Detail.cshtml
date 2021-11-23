@@ -4,9 +4,9 @@
 }
 @{
     var shortDescription = string.Empty;
-    if (Model.Description.Length > 200)
+    if (Model.Description.Length > 300)
     {
-        shortDescription = Model.Description.Substring(0, 200) + "..";
+        shortDescription = Model.Description.Substring(0, 300) + "..";
     }
     else
     {
@@ -35,12 +35,12 @@
             </div>
             <div class="col-lg-7">
                 <div class="product-details-info pl-lg--30 ">
-                    <p class="tag-block">Tags: @Model.Tags</p>
                     <h3 class="product-title">@Model.Name</h3>
                     <ul class="list-unstyled">
-                        <li>Category: <a href="#" class="list-value font-weight-bold"> @Model.Category.Name</a></li>
+                        <li>Category: <a  asp-action="Listing" asp-route-categoryId="@Model.CategoryId" class="list-value font-weight-bold"> @Model.Category.Name</a></li>
                         <li>Book Code: <span class="list-value"> @Model.Code</span></li>
-                        <li>Availability: <span class="list-value"> Avavilable</span></li>
+                        @*<li>Availability: <span class="list-value"> Avavilable</span></li>*@
+                        <li>Tags: <span class="list-value"> @Model.Tags</span></li>
                     </ul>
                     <div class="price-block">
                         <span class="price-new">@Model.Author</span>
