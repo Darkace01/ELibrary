@@ -454,3 +454,6 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 .vscode/launch.json
 .vscode/tasks.json
+/ELibrary/Properties/ServiceDependencies/elibrary-project - Web Deploy
+/ELibrary/Properties/ServiceDependencies/elibrary-project - Zip Deploy
+/ELibrary/Properties/ServiceDependencies/elibrary-project - Zip Deploy2

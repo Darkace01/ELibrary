@@ -46,32 +46,35 @@
         </div>
     </div>
 </section>
-<!--=================================
-    Home Category Gallery
-===================================== -->
-<section class="pt--30 section-margin">
-    <h2 class="sr-only">Category Gallery Section</h2>
-    <div class="container">
-        <div class="category-gallery-block">
-            @{
-                var defualtCategory = Model.Categories.FirstOrDefault(x => x.DefaultCategory);
-            }
-
-            <a asp-action="Listing" asp-route-categoryId="@defualtCategory.Id" class="single-block hr-large">
-                <img src="@defualtCategory.ImageUrl" alt="@defualtCategory.Name">
-            </a>
-
-            <div class="single-block inner-block-wrapper">
-                @foreach (var category in Model.Categories.Where(x => !x.DefaultCategory).ToList())
-                {
-                    <a asp-action="Listing" asp-route-categoryId="@category.Id" class="single-image small-image">
-                        <img src="@category.ImageUrl" alt="@category.Name">
-                    </a>
+@if (Model.Categories.Count > 0)
+{
+    <!--=================================
+        Home Category Gallery
+    ===================================== -->
+    <section class="pt--30 section-margin">
+        <h2 class="sr-only">Category Gallery Section</h2>
+        <div class="container">
+            <div class="category-gallery-block">
+                @{
+                    var defualtCategory = Model.Categories.FirstOrDefault(x => x.DefaultCategory);
                 }
+
+                <a asp-action="Listing" asp-route-categoryId="@defualtCategory.Id" class="single-block hr-large">
+                    <img src="@defualtCategory.ImageUrl" alt="@defualtCategory.Name">
+                </a>
+
+                <div class="single-block inner-block-wrapper">
+                    @foreach (var category in Model.Categories.Where(x => !x.DefaultCategory).ToList())
+                    {
+                        <a asp-action="Listing" asp-route-categoryId="@category.Id" class="single-image small-image">
+                            <img src="@category.ImageUrl" alt="@category.Name">
+                        </a>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
 @foreach (var category in Model.Categories)
 {
     if (Model.Books.Where(x => x.CategoryId == category.Id).Count() > 0)
