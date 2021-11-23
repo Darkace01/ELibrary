@@ -2,7 +2,7 @@ name: Build and deploy .NET Core app to Linux WebApp elibrary-project
 on:
   push:
     branches:
-    - main
+    - ci-cd
 env:
   AZURE_WEBAPP_NAME: elibrary-project
   AZURE_WEBAPP_PACKAGE_PATH: ELibrary/publish
