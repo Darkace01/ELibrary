@@ -27,4 +27,11 @@ public class HomeController : Controller
         model.Books = _mapper.Map<List<BookViewModel>>(books);
         return View(model);
     }
+
+    [Route("users-logs")]
+    public IActionResult UserLog()
+    {
+        var model = _repositoryService.UserBookService.GetAll(true);
+        return View(_mapper.Map<List<UserBookViewModel>>(model));
+    }
 }
