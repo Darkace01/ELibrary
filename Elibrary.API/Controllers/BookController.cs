@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using ELibrary.Core;
-using ELibrary.Service.Contract;
-using ELibrary.Utility;
-using ELibrary.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Authorization;
 
 namespace Elibrary.API.Controllers;
 [Route("api/book")]
@@ -76,10 +70,18 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddBook([FromBody] AddBookViewModel model,[FromForm] IFormFile ImageFile,[FromForm] IFormFile PdfFile)
+    [Authorize(Roles = AppConstant.AdminRole)]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> AddBook([FromForm] AddBookViewModel model)
     {
         try
         {
+            if (!ModelState.IsValid) return StatusCode(StatusCodes.Status200OK, new ApiResponse()
+            {
+                statusCode = StatusCodes.Status400BadRequest,
+                hasError = true,
+                message = "One or more validation errors occurred."
+            });
             if (model.Tags.Count > 0)
             {
                 var listOfTags = model.Tags;
@@ -91,22 +93,19 @@ public class BookController : ControllerBase
                 await _repositoryService.TagService.AddRange(_tags);
             }
             var book = _mapper.Map<Book>(model);
-            book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
-            book.ImageUrl = ImageFile != null ? await _repositoryService.FileStorageService.SaveFile(imageContainer, ImageFile) : "";
-            if (CommonHelper.CheckFileFormat(model.PdfFile, ".pdf"))
+            if (!CommonHelper.CheckFileFormat(model.PdfFile, ".pdf"))
             {
-                book.PdfUrl = PdfFile == null ? "" : await _repositoryService.FileStorageService.SaveFile(pdfContainer, PdfFile);
-            }
-            else
-            {
-                ModelState.AddModelError("", "File is not a pdf");
                 return StatusCode(StatusCodes.Status200OK, new ApiResponse()
                 {
                     statusCode = StatusCodes.Status400BadRequest,
                     hasError = true,
-                    message = "File too large"
+                    message = "File is not a pdf"
                 });
             }
+            book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
+            book.CategoryId = model.CategoryId ?? 1;
+            book.ImageUrl = model.ImageFile != null ? await _repositoryService.FileStorageService.SaveFile(imageContainer, model.ImageFile) : "";
+            book.PdfUrl = model.PdfFile == null ? "" : await _repositoryService.FileStorageService.SaveFile(pdfContainer, model.PdfFile);
 
             await _repositoryService.BookService.Add(book);
             return StatusCode(StatusCodes.Status200OK, new ApiResponse()

@@ -45,7 +45,7 @@ public class AccountController : Controller
                 var isAdmin = await _userManager.IsInRoleAsync(user, AppConstant.AdminRole);
                 if (isAdmin)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
+                    var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe ?? false, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });

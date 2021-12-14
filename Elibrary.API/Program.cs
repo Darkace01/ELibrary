@@ -1,10 +1,4 @@
-using ELibrary.Data;
-using ELibrary.Data.Contract;
-using ELibrary.Data.Implementation;
-using ELibrary.Service.Contract;
-using ELibrary.Service.Implementation;
-using ELibrary.Utility;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,18 +8,49 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddControllers();
+
+//Identity
+builder.Services.AddScoped<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
+    options =>
+    {
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequiredLength = 6;
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+//JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+        // Adding Jwt Bearer  
+        .AddJwtBearer(options =>
+        {
+            options.SaveToken = true;
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidAudience = builder.Configuration["JWT:ValidAudience"],
+                ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+            };
+        });
+
 //CORS
 builder.Services.AddCors();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
+
 //Service Manager DI
-builder.Services.AddScoped<IRepositoryServiceManager, RepositoryServiceManager>();
-
-builder.Services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitOfWork));
-
-//repos
-builder.Services.AddScoped(serviceType: typeof(ICoreRepo<>), implementationType: typeof(CoreRepo<>));
+builder.Services.ConfigureRepository();
 
 // auto mapper configuration
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -47,8 +72,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

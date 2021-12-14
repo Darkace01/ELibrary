@@ -4,11 +4,11 @@ namespace ELibrary.ViewModel;
 
 public class LoginViewModel
 {
-    [Required]
+    [Required(ErrorMessage = "User Name is required")]
     public string Username { get; set; }
-    [Required]
+    [Required(ErrorMessage = "Password is required")]
     [DataType(DataType.Password)]
     public string Password { get; set; }
     [Display(Name = "Remember me?")]
-    public bool RememberMe { get; set; }
+    public bool? RememberMe { get; set; }
 }
