@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Elibrary.API.Controllers;
 [Route("api/book")]
@@ -49,7 +50,8 @@ public class BookController : ControllerBase
             if (_book == null) return StatusCode(StatusCodes.Status200OK, new ApiResponse()
             {
                 statusCode = StatusCodes.Status404NotFound,
-                hasError = false
+                hasError = true,
+                message = "Book not found"
             });
             return StatusCode(StatusCodes.Status200OK, new ApiResponse()
             {
@@ -114,6 +116,52 @@ public class BookController : ControllerBase
                 hasError = false,
                 message = "Saved"
             });
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status200OK, new ApiResponse()
+            {
+                statusCode = StatusCodes.Status500InternalServerError,
+                hasError = true,
+                message = "An Error has occured please contact adminitrator"
+            });
+        }
+    }
+
+    [HttpPost("update/{id}")]
+    [Authorize(Roles = AppConstant.AdminRole)]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UpdateBook(int id,EditBookViewModel model)
+    {
+        try
+        {
+            var _book = _repositoryService.BookService.GetById(id);
+            if (_book == null) return StatusCode(StatusCodes.Status200OK, new ApiResponse()
+            {
+                statusCode = StatusCodes.Status404NotFound,
+                hasError = true,
+                message = "Book not found"
+            });
+            var book = _mapper.Map<Book>(model);
+            book.ImageUrl = model.ImageFile != null
+                ? await _repositoryService.FileStorageService.EditFile(imageContainer, model.ImageFile, model.PreviousImageUrl)
+                : model.PreviousImageUrl;
+
+            book.PdfUrl = string.IsNullOrWhiteSpace(model.PreviousPdfUrl) ? _book.PdfUrl : model.PreviousImageUrl;
+            if (model.Tags.Count > 0)
+            {
+                var listOfTags = model.Tags;
+                listOfTags = listOfTags.Distinct().ToList();
+
+                var tagsModel = listOfTags.Select(t => new AddTagViewModel() { Name = t, ValidTagName = _repositoryService.TagService.CheckTagName(t) }).ToList();
+                var _tags = tagsModel.Where(t => t.ValidTagName).Select(t => new Tag { Name = t.Name, IsFeatured = true });
+                model.TagString = string.Join(',', tagsModel.Select(t => t.Name));
+                await _repositoryService.TagService.AddRange(_tags);
+            }
+            book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
+
+            await _repositoryService.BookService.Update(book);
+            return RedirectToAction(nameof(Index));
         }
         catch (Exception)
         {
