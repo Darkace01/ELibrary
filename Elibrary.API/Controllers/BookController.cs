@@ -82,16 +82,6 @@ public class BookController : ControllerBase
                 hasError = true,
                 message = "One or more validation errors occurred."
             });
-            if (model.Tags.Count > 0)
-            {
-                var listOfTags = model.Tags;
-                listOfTags = listOfTags.Distinct().ToList();
-
-                var tagsModel = listOfTags.Select(t => new AddTagViewModel() { Name = t, ValidTagName = _repositoryService.TagService.CheckTagName(t) }).ToList();
-                var _tags = tagsModel.Where(t => t.ValidTagName).Select(t => new Tag { Name = t.Name, IsFeatured = true });
-                model.TagString = string.Join(',', tagsModel.Select(t => t.Name));
-                await _repositoryService.TagService.AddRange(_tags);
-            }
             var book = _mapper.Map<Book>(model);
             if (!CommonHelper.CheckFileFormat(model.PdfFile, ".pdf"))
             {
@@ -102,10 +92,20 @@ public class BookController : ControllerBase
                     message = "File is not a pdf"
                 });
             }
-            book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
-            book.CategoryId = model.CategoryId ?? 1;
             book.ImageUrl = model.ImageFile != null ? await _repositoryService.FileStorageService.SaveFile(imageContainer, model.ImageFile) : "";
             book.PdfUrl = model.PdfFile == null ? "" : await _repositoryService.FileStorageService.SaveFile(pdfContainer, model.PdfFile);
+            if (model.Tags.Count > 0)
+            {
+                var listOfTags = model.Tags;
+                listOfTags = listOfTags.Distinct().ToList();
+
+                var tagsModel = listOfTags.Select(t => new AddTagViewModel() { Name = t, ValidTagName = _repositoryService.TagService.CheckTagName(t) }).ToList();
+                var _tags = tagsModel.Where(t => t.ValidTagName).Select(t => new Tag { Name = t.Name, IsFeatured = true });
+                model.TagString = string.Join(',', tagsModel.Select(t => t.Name));
+                await _repositoryService.TagService.AddRange(_tags);
+            }
+            book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
+            book.CategoryId = model.CategoryId ?? 1;
 
             await _repositoryService.BookService.Add(book);
             return StatusCode(StatusCodes.Status200OK, new ApiResponse()
