@@ -161,9 +161,46 @@ public class BookController : ControllerBase
             book.Tags = !string.IsNullOrEmpty(model.TagString) ? model.TagString : "";
 
             await _repositoryService.BookService.Update(book);
-            return RedirectToAction(nameof(Index));
+            return StatusCode(StatusCodes.Status200OK, new ApiResponse()
+            {
+                statusCode = StatusCodes.Status200OK,
+                hasError = false,
+                message = "Updated"
+            });
         }
         catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status200OK, new ApiResponse()
+            {
+                statusCode = StatusCodes.Status500InternalServerError,
+                hasError = true,
+                message = "An Error has occured please contact adminitrator"
+            });
+        }
+    }
+
+    [HttpGet("delete/{id}")]
+    [Authorize(Roles = AppConstant.AdminRole)]
+    public async Task<IActionResult> DeleteBook(int Id)
+    {
+        try
+        {
+            var book = _repositoryService.BookService.GetById(Id);
+            if (book == null) return StatusCode(StatusCodes.Status200OK, new ApiResponse()
+            {
+                statusCode = StatusCodes.Status404NotFound,
+                hasError = true,
+                message = "Book not found"
+            });
+            await _repositoryService.BookService.Delete(book);
+            return StatusCode(StatusCodes.Status200OK, new ApiResponse()
+            {
+                statusCode = StatusCodes.Status200OK,
+                hasError = false,
+                message = "Deleted"
+            });
+        }
+        catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status200OK, new ApiResponse()
             {
