@@ -1,8 +1,4 @@
-﻿using ELibrary.Core;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Elibrary.API.Controllers;
+﻿namespace Elibrary.API.Controllers;
 [Route("api/category")]
 [ApiController]
 public class CategoryController : ControllerBase
@@ -17,7 +13,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllBooks()
+    public IActionResult GetAllCategories()
     {
         try
         {

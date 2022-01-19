@@ -1,6 +1,6 @@
 ﻿namespace ELibrary.ViewComponents;
 [ViewComponent(Name = "RelatedBooks")]
-public class RelatedBooksComponent :  ViewComponent
+public class RelatedBooksComponent : ViewComponent
 {
     private readonly IRepositoryServiceManager _repositoryService;
     private readonly IMapper _mapper;

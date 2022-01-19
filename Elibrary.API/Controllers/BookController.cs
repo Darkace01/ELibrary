@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Elibrary.API.Controllers;
 [Route("api/book")]
@@ -18,7 +17,7 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllBooks([FromQuery] bool WithRelationShip = false,string? query = "")
+    public IActionResult GetAllBooks([FromQuery] bool WithRelationShip = false, string? query = "")
     {
         try
         {
@@ -135,7 +134,7 @@ public class BookController : ControllerBase
     [HttpPost("update/{id}")]
     [Authorize(Roles = AppConstant.AdminRole)]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> UpdateBook(int id,EditBookViewModel model)
+    public async Task<IActionResult> UpdateBook(int id, EditBookViewModel model)
     {
         try
         {
@@ -204,7 +203,7 @@ public class BookController : ControllerBase
                 message = "Deleted"
             });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return StatusCode(StatusCodes.Status200OK, new ApiResponse()
             {
