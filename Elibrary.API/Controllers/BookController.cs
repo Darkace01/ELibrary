@@ -18,16 +18,20 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllBooks([FromQuery] bool WithRelationShip = false)
+    public IActionResult GetAllBooks([FromQuery] bool WithRelationShip = false,string? query = "")
     {
         try
         {
-            var _books = _repositoryService.BookService.GetAllBooks(WithRelationShip).ToList();
+            var _books = _repositoryService.BookService.GetAllBooks(WithRelationShip);
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                _books = _books.Where(x => x.Tags.Contains(query) || x.Name.Contains(query) || x.Author.Contains(query) || x.Category.Name.Contains(query));
+            }
             return StatusCode(StatusCodes.Status200OK, new ApiResponse()
             {
                 statusCode = StatusCodes.Status200OK,
                 hasError = false,
-                data = _mapper.Map<List<BookViewModel>>(_books)
+                data = _mapper.Map<List<BookViewModel>>(_books.ToList())
             });
         }
         catch (Exception)
