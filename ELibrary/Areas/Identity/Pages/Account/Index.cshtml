@@ -76,11 +76,11 @@
                                                     i++;
                                                     <tr>
                                                         <td>@i</td>
-                                                        <td>@userBook.Book.Name</td>
-                                                        <td>@userBook.DateCreated.ToString("dd-MMM-yyyy")</td>
+                                                        <td>@userBook?.Book?.Name</td>
+                                                        <td>@userBook?.DateCreated.ToString("dd-MMM-yyyy")</td>
                                                         <td>
-                                                            <a href="javascript:;" onclick="viewPDF('@userBook.Book.PdfUrl')" class="btn px-1">View</a>
-                                                            <a href="javascript:;" class="btn px-1" onclick="downloadURI('@userBook.Book.PdfUrl','@userBook.Book.Name')">Download</a>
+                                                            <a href="javascript:;" onclick="viewPDF('@userBook?.Book?.PdfUrl')" class="btn px-1">View</a>
+                                                            <a href="javascript:;" class="btn px-1" onclick="downloadURI('@userBook?.Book?.PdfUrl','@userBook?.Book?.Name')">Download</a>
                                                         </td>
                                                     </tr>
                                                 }

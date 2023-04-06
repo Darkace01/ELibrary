@@ -59,8 +59,8 @@
                     var defualtCategory = Model.Categories.FirstOrDefault(x => x.DefaultCategory);
                 }
 
-                <a asp-action="Listing" asp-route-categoryId="@defualtCategory.Id" class="single-block hr-large">
-                    <img src="@defualtCategory.ImageUrl" alt="@defualtCategory.Name">
+                <a asp-action="Listing" asp-route-categoryId="@defualtCategory?.Id" class="single-block hr-large">
+                    <img src="@defualtCategory?.ImageUrl" alt="@defualtCategory?.Name">
                 </a>
 
                 <div class="single-block inner-block-wrapper">
